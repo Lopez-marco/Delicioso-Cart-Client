@@ -1,0 +1,104 @@
+{
+  "name": "coupons",
+  "attributes": {},
+  "children": [
+    {
+      "name": "PID",
+      "attributes": {},
+      "children": [],
+      "value": "13306"
+    },
+    {
+      "name": "NID",
+      "attributes": {},
+      "children": [],
+      "value": "10"
+    },
+    {
+      "name": "ZID",
+      "attributes": {},
+      "children": [],
+      "value": "iq37"
+    },
+    {
+      "name": "item",
+      "attributes": {},
+      "children": [
+        {
+          "name": "couponid",
+          "attributes": {},
+          "children": [],
+          "value": "21309045"
+        },
+        {
+          "name": "link",
+          "attributes": {},
+          "children": [],
+          "value": "http://www.coupons.com/?pid=13306&amp;zid=iq37&amp;nid=10&amp;bid=&amp;plid=RSS&amp;crid=RSS&amp;cid=21309045&amp;alt=yes"
+        },
+        {
+          "name": "description",
+          "attributes": {},
+          "children": [],
+          "value": "on any ONE (1) NEW Talenti Gelato &amp; Sorbetto jar"
+        },
+        {
+          "name": "image",
+          "attributes": {},
+          "children": [],
+          "value": "http://cdn.cpnscdn.com/insight.coupons.com/COS20/_Cache/_ImageCache/045/21309045.gif"
+        },
+        {
+          "name": "activedate",
+          "attributes": {},
+          "children": [],
+          "value": "9/21/2020 12:01:00 AM"
+        },
+        {
+          "name": "shutoff",
+          "attributes": {},
+          "children": [],
+          "value": "10/25/2020 11:59:59 PM"
+        },
+        {
+          "name": "expiration",
+          "attributes": {},
+          "children": [],
+          "value": "11/22/2020 11:59:00 PM"
+        },
+        {
+          "name": "majorCategory",
+          "attributes": {},
+          "children": [],
+          "value": "Foods"
+        },
+        {
+          "name": "minorCategory",
+          "attributes": {},
+          "children": [],
+          "value": "Pudding/Gelatin"
+        },
+        {
+          "name": "brand",
+          "attributes": {},
+          "children": [],
+          "value": "Talenti"
+        },
+        {
+          "name": "value",
+          "attributes": {},
+          "children": [],
+          "value": "1.25"
+        },
+        {
+          "name": "geotarget",
+          "attributes": {},
+          "children": [],
+          "value": "0"
+        }
+      ],
+      "value": ""
+    },
+  ],
+  "value": ""
+}
