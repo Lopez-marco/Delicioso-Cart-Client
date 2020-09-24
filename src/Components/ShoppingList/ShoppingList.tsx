@@ -1,7 +1,8 @@
 import React from 'react';
 import ShoppingListInterface from './ShoppingListInterface';
-import { Row, Col, List } from 'antd';
+import { Row, Col, List, Divider } from 'antd';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import ShoppingListElement from './ShoppingListElement';
 
 export interface ShoppingListProps {
     token: string;
@@ -9,7 +10,6 @@ export interface ShoppingListProps {
 
 export interface ShoppingListState {
     list: ShoppingListInterface[];
-    ids: number[];
 }
 
 class ShoppingList extends React.Component<ShoppingListProps, ShoppingListState> {
@@ -17,7 +17,6 @@ class ShoppingList extends React.Component<ShoppingListProps, ShoppingListState>
         super(props);
         this.state = {
             list: [],
-            ids: []
         };
         this.fetchList = this.fetchList.bind(this);
         this.createDraggableItem = this.createDraggableItem.bind(this);
@@ -42,7 +41,6 @@ class ShoppingList extends React.Component<ShoppingListProps, ShoppingListState>
                 console.log(list);
                 this.setState({
                     list: list,
-                    ids: list.map(i=>i.id)
                 })
             })
     }
@@ -59,37 +57,25 @@ class ShoppingList extends React.Component<ShoppingListProps, ShoppingListState>
             return;
         }
 
-        // const myList = 'shoppingListDnD';
-        // const items = this.state.ids;
-        // // const droppedItem = this.state.list[source.index]
+        const items = Object.assign([], this.state.list);
+        const droppedItem = this.state.list[source.index];
 
-        // items.splice(source.index, 1);
-        // items.splice(destination.index, 0, draggableId);
+        items.splice(source.index, 1);
+        items.splice(destination.index, 0, droppedItem);
 
-        // const newIds = {
-        //     myList,
-        //     ids: items
-        // }
-
-        // const newState = {
-        //     ...this.state,
-
-        // }
-
-        // // this.setState({ list: items })
     }
 
     //creates React Dnd list
-    createDraggableItem(item: ShoppingListInterface, index:number) {
+    createDraggableItem(item: ShoppingListInterface, index: number) {
         return (
             <Draggable
-                key={item.id}
-                draggableId={item.item_name}
-                index={this.state.ids[index]}
+                key={index}
+                draggableId={index + ''}
+                index={index}
             >
                 {(provided) => (
                     <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                        <List.Item>{item.item_name}</List.Item>
+                        <ShoppingListElement item={item} /> 
                     </div>
                 )}
             </Draggable>
@@ -103,7 +89,7 @@ class ShoppingList extends React.Component<ShoppingListProps, ShoppingListState>
             <>
                 {this.state.list.length > 0 ?
                     <Row style={{ margin: '2em' }}>
-                        <Col span={24}>
+                        <Col span={12} offset={6}>
                             <List bordered>
                                 <DragDropContext onDragEnd={this.onDragEnd}>
                                     <Droppable droppableId='shoppingListDnD'>
