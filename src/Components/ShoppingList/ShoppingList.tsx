@@ -1,6 +1,6 @@
 import React from 'react';
 import ShoppingListInterface from './ShoppingListInterface';
-import { Row, Col, List, Divider } from 'antd';
+import { Row, Col, List, Input } from 'antd';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import ShoppingListElement from './ShoppingListElement';
 
@@ -10,6 +10,10 @@ export interface ShoppingListProps {
 
 export interface ShoppingListState {
     list: ShoppingListInterface[];
+    item: string;
+    quantity: number;
+    category: string;
+    bought: boolean;
 }
 
 class ShoppingList extends React.Component<ShoppingListProps, ShoppingListState> {
@@ -17,8 +21,13 @@ class ShoppingList extends React.Component<ShoppingListProps, ShoppingListState>
         super(props);
         this.state = {
             list: [],
+            item: '',
+            quantity: 0,
+            category: '',
+            bought: false
         };
         this.fetchList = this.fetchList.bind(this);
+        this.addItemQuick = this.addItemQuick.bind(this);
         this.createDraggableItem = this.createDraggableItem.bind(this);
     }
 
@@ -44,6 +53,26 @@ class ShoppingList extends React.Component<ShoppingListProps, ShoppingListState>
                 })
             })
     }
+    // add item quick way
+    addItemQuick() {
+        fetch('http://localhost:3001/shopping-list/add-quick', {
+            method: 'POST',
+            body: JSON.stringify({
+                item_name: this.state.item
+            }),
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Authorization': this.props.token
+            })
+        })
+            .then(res => res.json())
+            .then((res: number) => {
+                console.log(res);
+                this.fetchList();
+            })
+    }
+
+
 
 
     //for React DnD
@@ -75,7 +104,7 @@ class ShoppingList extends React.Component<ShoppingListProps, ShoppingListState>
             >
                 {(provided) => (
                     <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                        <ShoppingListElement item={item} /> 
+                        <ShoppingListElement item={item} />
                     </div>
                 )}
             </Draggable>
@@ -91,6 +120,7 @@ class ShoppingList extends React.Component<ShoppingListProps, ShoppingListState>
                     <Row style={{ margin: '2em' }}>
                         <Col span={12} offset={6}>
                             <List bordered>
+                                <List.Item className='list-item' > Shopping List </List.Item>
                                 <DragDropContext onDragEnd={this.onDragEnd}>
                                     <Droppable droppableId='shoppingListDnD'>
                                         {(provided) => (
@@ -100,6 +130,7 @@ class ShoppingList extends React.Component<ShoppingListProps, ShoppingListState>
                                             </div>)}
                                     </Droppable>
                                 </DragDropContext>
+                                <List.Item className='list-item' style={{ borderBottom: '1px solid lightslategray' }}><Input className='borderless' placeholder='Add another item...'/></List.Item>
                             </List>
                         </Col>
                     </Row>
