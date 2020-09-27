@@ -1,13 +1,23 @@
 import React from "react";
 import "./App.css";
-import Coupons from "./components/coupons/Coupons";
+import Coupons from "./components/coupons/CouponsParent";
 
-function App() {
-  return (
-    <div className="App">
-      <Coupons />
-    </div>
-  );
+export interface AppProps {}
+
+export interface AppState {}
+
+class App extends React.Component<AppProps, AppState> {
+  constructor(props: AppProps) {
+    super(props);
+    this.state = {};
+  }
+  render() {
+    return (
+      <div>
+        <Coupons />
+      </div>
+    );
+  }
 }
 
 export default App;

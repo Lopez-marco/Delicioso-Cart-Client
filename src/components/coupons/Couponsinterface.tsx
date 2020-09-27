@@ -1,26 +1,25 @@
-export interface Attributes {}
-
-export interface Attributes2 {}
-
-export interface Attributes3 {}
-
-export interface Child2 {
-  name: string;
-  attributes: Attributes3;
-  children: any[];
-  value: string;
+export interface Item {
+  couponid: string[];
+  link: string[];
+  description: string[];
+  image: string[];
+  activedate: string[];
+  shutoff: string[];
+  expiration: string[];
+  majorCategory: string[];
+  minorCategory: string[];
+  brand: string[];
+  value: string[];
+  geotarget: string[];
 }
 
-export interface Child {
-  name: string;
-  attributes: Attributes2;
-  children: Child2[];
-  value: string;
+export interface Coupons {
+  PID: string[];
+  NID: string[];
+  ZID: string[];
+  item: Item[];
 }
 
-export interface CouponResponse {
-  name: string;
-  attributes: Attributes;
-  children: Child[];
-  value: string;
+export interface CouponsResponse {
+  coupons: Coupons;
 }
