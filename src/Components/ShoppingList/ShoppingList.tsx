@@ -28,17 +28,17 @@ class ShoppingList extends React.Component<ShoppingListProps, ShoppingListState>
         };
         this.fetchList = this.fetchList.bind(this);
         this.addItemQuick = this.addItemQuick.bind(this);
+        this.addItemLong = this.addItemLong.bind(this);
         this.createDraggableItem = this.createDraggableItem.bind(this);
     }
 
     componentDidMount() {
         this.fetchList();
-        console.log('running')
     }
 
     //get all
     fetchList() {
-        fetch('http://localhost:3001/shopping-list/', {
+        fetch(`http://localhost:3001/shopping-list/`, {
             method: 'GET',
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -55,10 +55,31 @@ class ShoppingList extends React.Component<ShoppingListProps, ShoppingListState>
     }
     // add item quick way
     addItemQuick() {
-        fetch('http://localhost:3001/shopping-list/add-quick', {
+        fetch(`http://localhost:3001/shopping-list/add-quick`, {
             method: 'POST',
             body: JSON.stringify({
                 item_name: this.state.item
+            }),
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Authorization': this.props.token
+            })
+        })
+            .then(res => res.json())
+            .then((res: number) => {
+                console.log(res);
+                this.fetchList();
+            })
+    }
+
+    // add item long way
+    addItemLong() {
+        fetch(`http://localhost:3001/shopping-list/add-long`, {
+            method: 'POST',
+            body: JSON.stringify({
+                item_name: this.state.item,
+                quantity: this.state.quantity,
+                cetegory: this.state.category
             }),
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -77,8 +98,7 @@ class ShoppingList extends React.Component<ShoppingListProps, ShoppingListState>
 
     //for React DnD
     onDragEnd = (result: any) => {
-        console.log(result)
-        const { destination, source, reason, draggableId } = result;
+        const { destination, source, reason } = result;
         if (!destination || reason === 'CANCEL') {
             return;
         }
@@ -92,6 +112,8 @@ class ShoppingList extends React.Component<ShoppingListProps, ShoppingListState>
         items.splice(source.index, 1);
         items.splice(destination.index, 0, droppedItem);
 
+        this.setState({ list: items });
+
     }
 
     //creates React Dnd list
@@ -104,7 +126,7 @@ class ShoppingList extends React.Component<ShoppingListProps, ShoppingListState>
             >
                 {(provided) => (
                     <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                        <ShoppingListElement item={item} />
+                        <ShoppingListElement token={this.props.token} fetchList={this.fetchList} item={item} />
                     </div>
                 )}
             </Draggable>
@@ -130,7 +152,9 @@ class ShoppingList extends React.Component<ShoppingListProps, ShoppingListState>
                                             </div>)}
                                     </Droppable>
                                 </DragDropContext>
-                                <List.Item className='list-item' style={{ borderBottom: '1px solid lightslategray' }}><Input className='borderless' placeholder='Add another item...'/></List.Item>
+                                <List.Item className='list-item' style={{ borderTop: '1px solid lightslategray' }}>
+                                    <Input className='borderless' onPressEnter={(e => this.addItemQuick())} onChange={(e => this.setState({ item: e.target.value }))} placeholder='Add another item...' />
+                                </List.Item>
                             </List>
                         </Col>
                     </Row>
