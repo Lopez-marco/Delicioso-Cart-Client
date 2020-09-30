@@ -1,5 +1,5 @@
 import React from 'react';
-import { Checkbox, List, Menu, Dropdown, Button, message } from 'antd';
+import { Checkbox, List, Menu, Dropdown, Button, message, Form, Input, InputNumber } from 'antd';
 import ShoppingListInterface from './ShoppingListInterface';
 import { DeleteOutlined, EditOutlined, EllipsisOutlined } from '@ant-design/icons';
 import { CheckboxChangeEvent } from 'antd/lib/checkbox';
@@ -9,6 +9,7 @@ export interface ShoppingListElementProps {
     item: ShoppingListInterface;
     fetchList: Function;
     token: string;
+    index: number;
 }
 export interface ShoppingListElementState {
     item: string;
@@ -37,8 +38,7 @@ class ShoppingListElement extends React.Component<ShoppingListElementProps, Shop
     }
 
     onChange(e: CheckboxChangeEvent) {
-        this.setState({bought: e.target.checked});
-        this.checkItem();
+        this.checkItem(e);
     }
 
     handleMenuClick(e: any) {
@@ -75,12 +75,12 @@ class ShoppingListElement extends React.Component<ShoppingListElementProps, Shop
             })
     }
     // edit item
-    checkItem() {
+    checkItem(e: CheckboxChangeEvent) {
         console.log('from checkbox fetch')
-        fetch(`http://localhost:3001/shopping-list/edit/${this.props.item.id}`, {
+        fetch(`http://localhost:3001/shopping-list/edit-check/${this.props.item.id}`, {
             method: 'PUT',
             body: JSON.stringify({
-                bought: this.state.bought
+                bought: e.target.value
             }),
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -114,30 +114,11 @@ class ShoppingListElement extends React.Component<ShoppingListElementProps, Shop
 
     showModal() {
         console.log("modal hit")
-        this.setState({modalDisplay: true});
-        this.generateModal();
-            }
+        this.setState({ modalDisplay: true });
+    }
 
     generateModal() {
-        return (
-            <Modal
-                title="Edit Item"
-                centered
-                visible={this.state.modalDisplay}
-                onOk={this.handleOk}
-                onCancel={this.handleCancel}
-                footer={[
-                    <Button key="back" onClick={this.handleCancel}>
-                        Cancel
-                </Button>,
-                    <Button key="submit" type="primary" onClick={this.handleOk}>
-                        Submit
-                </Button>,
-                ]}
-            >
-                <p>something something</p>
-            </Modal>
-        );
+        return
     }
     render() {
         const menu = (
@@ -150,22 +131,61 @@ class ShoppingListElement extends React.Component<ShoppingListElementProps, Shop
                 </Menu.Item>
             </Menu>
         );
+        const layout = {
+            labelCol: { span: 8 },
+            wrapperCol: { span: 16 },
+        };
         return (
-            <List.Item
-                className='list-item'
-                // eslint-disable-next-line jsx-a11y/anchor-is-valid
-                actions={[<a key="list-options">
-                    <div id="components-dropdown-demo-dropdown-button">
-                        <Dropdown overlay={menu}>
-                            <Button className='borderless'>
-                                <EllipsisOutlined rotate={90} />
+            <div>
+                <List.Item
+                    className='list-item'
+                    key={this.props.item.id}
+                    // eslint-disable-next-line jsx-a11y/anchor-is-valid
+                    actions={[<a key="list-options">
+                        <div id="components-dropdown-demo-dropdown-button">
+                            <Dropdown overlay={menu}>
+                                <Button className='borderless'>
+                                    <EllipsisOutlined rotate={90} />
+                                </Button>
+                            </Dropdown>
+                        </div>
+                    </a>]}
+                >
+                    <Checkbox defaultChecked={this.props.item.bought} onChange={this.onChange}>{this.props.item.item_name}</Checkbox>
+                </List.Item>
+                <Modal
+                    title="Edit Item"
+                    centered
+                    visible={this.state.modalDisplay}
+                    onOk={this.handleOk}
+                    onCancel={this.handleCancel}
+                    footer={[
+                        <Button key="back" onClick={this.handleCancel}>
+                            Cancel
+                        </Button>,
+                        <Button key="submit" type="primary" onClick={this.handleOk}>
+                            Submit
+                        </Button>,
+                    ]}
+                >
+                    <Form {...layout} name="myList">
+                        <Form.Item name={['item']} label="Item" rules={[{ required: true }]}>
+                            <Input />
+                        </Form.Item>
+                        <Form.Item name={['Category']} label="Category" rules={[{ type: 'email' }]}>
+                            <Input />
+                        </Form.Item>
+                        <Form.Item name={['Quantity']} label="Quantity" rules={[{ type: 'number', min: 1, max: 99 }]}>
+                            <InputNumber />
+                        </Form.Item>
+                        <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
+                            <Button type="primary" htmlType="submit">
+                                Submit
                             </Button>
-                        </Dropdown>
-                    </div>
-                </a>]}
-            >
-                <Checkbox onChange={this.onChange}>{this.props.item.item_name}</Checkbox>
-            </List.Item>
+                        </Form.Item>
+                    </Form>
+                </Modal>
+            </div>
         );
     }
 }

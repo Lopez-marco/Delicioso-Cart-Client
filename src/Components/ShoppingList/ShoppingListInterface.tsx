@@ -4,6 +4,7 @@
         quantity: number;
         category?: String;
         bought: boolean;
+        order: number;
     }
 
 

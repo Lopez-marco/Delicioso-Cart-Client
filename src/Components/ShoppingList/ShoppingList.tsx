@@ -29,6 +29,7 @@ class ShoppingList extends React.Component<ShoppingListProps, ShoppingListState>
         this.fetchList = this.fetchList.bind(this);
         this.addItemQuick = this.addItemQuick.bind(this);
         this.addItemLong = this.addItemLong.bind(this);
+        this.updateItemOrder = this.updateItemOrder.bind(this);
         this.createDraggableItem = this.createDraggableItem.bind(this);
     }
 
@@ -93,7 +94,23 @@ class ShoppingList extends React.Component<ShoppingListProps, ShoppingListState>
             })
     }
 
-
+    // update item order
+    updateItemOrder(item: ShoppingListInterface, order: number) {
+        fetch(`http://localhost:3001/shopping-list/update-item/${item.id}`, {
+            method: 'PUT',
+            body: JSON.stringify({
+                order: order
+            }),
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Authorization': this.props.token
+            })
+        })
+            .then(res => res.json())
+            .then((res: number) => {
+                console.log(res);
+            })
+    }
 
 
     //for React DnD
@@ -112,57 +129,61 @@ class ShoppingList extends React.Component<ShoppingListProps, ShoppingListState>
         items.splice(source.index, 1);
         items.splice(destination.index, 0, droppedItem);
 
+        items.forEach((item: ShoppingListInterface, index: number):void => {
+            item.order = index;
+            this.updateItemOrder(item, index);
+        })
+
         this.setState({ list: items });
-
     }
 
-    //creates React Dnd list
-    createDraggableItem(item: ShoppingListInterface, index: number) {
-        return (
-            <Draggable
-                key={index}
-                draggableId={index + ''}
-                index={index}
-            >
-                {(provided) => (
-                    <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                        <ShoppingListElement token={this.props.token} fetchList={this.fetchList} item={item} />
-                    </div>
-                )}
-            </Draggable>
-        )
-    }
+//creates React Dnd list
+createDraggableItem(item: ShoppingListInterface, index: number) {
+    return (
+        <Draggable
+            key={index}
+            draggableId={index + ''}
+            index={index}
+        >
+            {(provided) => (
+                <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                    <ShoppingListElement token={this.props.token} fetchList={this.fetchList} item={item} index={index} />
+                </div>
+            )}
+        </Draggable>
+    )
+}
 
 
-    render() {
+render() {
 
-        return (
-            <>
-                {this.state.list.length > 0 ?
-                    <Row style={{ margin: '2em' }}>
-                        <Col span={12} offset={6}>
-                            <List bordered>
-                                <List.Item className='list-item' > Shopping List </List.Item>
-                                <DragDropContext onDragEnd={this.onDragEnd}>
-                                    <Droppable droppableId='shoppingListDnD'>
-                                        {(provided) => (
-                                            <div ref={provided.innerRef} {...provided.droppableProps}>
-                                                {this.state.list.map((item, index) => this.createDraggableItem(item, index))}
-                                                {provided.placeholder}
-                                            </div>)}
-                                    </Droppable>
-                                </DragDropContext>
-                                <List.Item className='list-item' style={{ borderTop: '1px solid lightslategray' }}>
-                                    <Input className='borderless' onPressEnter={(e => this.addItemQuick())} onChange={(e => this.setState({ item: e.target.value }))} placeholder='Add another item...' />
-                                </List.Item>
-                            </List>
-                        </Col>
-                    </Row>
-                    : 'no items'
-                }
-            </>
-        );
-    }
+    return (
+        <>
+            <Row style={{ margin: '2em' }}>
+                <Col span={12} offset={6}>
+                    <List bordered>
+                        <List.Item className='list-item' > Shopping List </List.Item>
+                        {this.state.list.length > 0 ?
+                            <DragDropContext onDragEnd={this.onDragEnd}>
+                                <Droppable droppableId='shoppingListDnD'>
+                                    {(provided) => (
+                                        <div ref={provided.innerRef} {...provided.droppableProps}>
+                                            {this.state.list.map((item, index) => this.createDraggableItem(item, index))}
+                                            {provided.placeholder}
+                                        </div>)}
+                                </Droppable>
+                            </DragDropContext>
+                            : null
+                        }
+                        <List.Item className='list-item' style={{ borderTop: '1px solid lightslategray' }}>
+                            <Input className='borderless' onPressEnter={(e => { this.addItemQuick(); })} onChange={(e => this.setState({ item: e.target.value }))} placeholder='Add item...' />
+                        </List.Item>
+                    </List>
+                </Col>
+            </Row>
+        </>
+    );
+}
 }
 
 export default ShoppingList;
