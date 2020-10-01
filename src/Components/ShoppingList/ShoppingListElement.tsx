@@ -12,10 +12,10 @@ export interface ShoppingListElementProps {
     index: number;
 }
 export interface ShoppingListElementState {
-    item: string;
-    quantity: number;
-    category: string;
-    bought: boolean;
+    item_new: string;
+    quantity_new: number;
+    category_new: string;
+    bought_new: boolean;
     modalDisplay: boolean;
 }
 
@@ -23,10 +23,10 @@ class ShoppingListElement extends React.Component<ShoppingListElementProps, Shop
     constructor(props: ShoppingListElementProps) {
         super(props);
         this.state = {
-            item: '',
-            quantity: 0,
-            category: '',
-            bought: false,
+            item_new: '',
+            quantity_new: 0,
+            category_new: '',
+            bought_new: false,
             modalDisplay: false
         };
         this.onChange = this.onChange.bind(this);
@@ -59,9 +59,9 @@ class ShoppingListElement extends React.Component<ShoppingListElementProps, Shop
         fetch(`http://localhost:3001/shopping-list/edit/${this.props.item.id}`, {
             method: 'PUT',
             body: JSON.stringify({
-                item_name: this.state.item,
-                quantity: this.state.quantity,
-                cetegory: this.state.category
+                item_name: this.state.item_new,
+                quantity: this.state.quantity_new,
+                category: this.state.category_new
             }),
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -70,17 +70,17 @@ class ShoppingListElement extends React.Component<ShoppingListElementProps, Shop
         })
             .then(res => res.json())
             .then((res: number) => {
-                console.log(res);
+                console.log(this.state.category_new)
+                this.setState({ modalDisplay: false });
                 this.props.fetchList();
             })
     }
     // edit item
     checkItem(e: CheckboxChangeEvent) {
-        console.log('from checkbox fetch')
-        fetch(`http://localhost:3001/shopping-list/edit-check/${this.props.item.id}`, {
+        fetch(`http://localhost:3001/shopping-list/update-item/${this.props.item.id}`, {
             method: 'PUT',
             body: JSON.stringify({
-                bought: e.target.value
+                bought: e.target.checked
             }),
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -170,18 +170,13 @@ class ShoppingListElement extends React.Component<ShoppingListElementProps, Shop
                 >
                     <Form {...layout} name="myList">
                         <Form.Item name={['item']} label="Item" rules={[{ required: true }]}>
-                            <Input />
+                            <Input defaultValue={this.props.item.item_name} onChange={e => this.setState({item_new: e.target.value})}/>
                         </Form.Item>
-                        <Form.Item name={['Category']} label="Category" rules={[{ type: 'email' }]}>
-                            <Input />
+                        <Form.Item name={['Category']} label="Category">
+                            <Input defaultValue={this.props.item.category} onChange={e => this.setState({category_new: e.target.value})}/>
                         </Form.Item>
                         <Form.Item name={['Quantity']} label="Quantity" rules={[{ type: 'number', min: 1, max: 99 }]}>
-                            <InputNumber />
-                        </Form.Item>
-                        <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-                            <Button type="primary" htmlType="submit">
-                                Submit
-                            </Button>
+                            <InputNumber defaultValue={this.props.item.quantity} onChange={e => this.setState({quantity_new: Number(e)})}/>
                         </Form.Item>
                     </Form>
                 </Modal>

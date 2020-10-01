@@ -2,7 +2,7 @@
         id: number;
         item_name: string;
         quantity: number;
-        category?: String;
+        category?: string;
         bought: boolean;
         order: number;
     }
