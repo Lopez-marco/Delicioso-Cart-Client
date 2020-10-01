@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 import Coupons from "./components/coupons/CouponsParent";
 import Geolocation from "./components/FavoviteStore/Geolocation";
+import Navbar from "./components/MainPage/Navbar";
 
 export interface AppProps {}
 
@@ -17,6 +18,7 @@ class App extends React.Component<AppProps, AppState> {
   render() {
     return (
       <div>
+        <Navbar />
         <Geolocation url={this.GeoURL} />
         <Coupons />
       </div>

@@ -39,11 +39,11 @@ class Geolocation extends React.Component<GeolocationProps, GeolocationState> {
       <div>
         {this.state.lat > 0 && this.state.lng ? (
           <FavoriteStore
-            url={`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${this.state.lat},${this.state.lng}&radius=32186&type=supermarket&keyword=wholefoods&key=AIzaSyC8SxWx5derhovl8nfdFbYxhMR5r_mH7ww`}
+            url={`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${this.state.lat},${this.state.lng}&radius=32186&type=supermarket&keyword=walmart&key=AIzaSyC8SxWx5derhovl8nfdFbYxhMR5r_mH7ww`}
           />
         ) : null}
-        Hello from Geo ----- latitude {this.state.lat}
-        ------ longitude {this.state.lng}
+        {/* Hello from Geo ----- latitude {this.state.lat}
+        ------ longitude {this.state.lng} */}
       </div>
     );
   }
