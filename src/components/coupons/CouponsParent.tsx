@@ -4,7 +4,9 @@ import { CouponsResponse, Item } from "./Couponsinterface";
 import CouponCards from "./CouponCards";
 import { Row } from "antd";
 
-export interface CouponsParentProps {}
+export interface CouponsParentProps {
+  updateToken: Function;
+}
 
 export interface CouponsParentState {
   couponsvalue: Item[];
@@ -34,7 +36,6 @@ class CouponsParent extends React.Component<
         var xml = d.data;
         parseString(xml, (err: any, result: CouponsResponse) => {
           console.dir(result);
-          // console.log(result.coupons.item[2].description[0]);
           this.setState({
             couponsvalue: result.coupons.item,
           });
@@ -47,7 +48,11 @@ class CouponsParent extends React.Component<
         <Row gutter={[18, 16]} justify="center">
           {this.state.couponsvalue.length > 0 ? (
             this.state.couponsvalue.map((coupons: Item, index: number) => (
-              <CouponCards couponsbox={coupons} key={index} />
+              <CouponCards
+                couponsbox={coupons}
+                key={index}
+                updateToken={this.props.updateToken}
+              />
             ))
           ) : (
             <></>

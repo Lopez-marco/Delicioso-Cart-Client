@@ -27,7 +27,7 @@ class App extends React.Component<AppProps, AppState> {
       <div>
         <Navbar />
         <Geolocation url={this.GeoURL} />
-        <Coupons />
+        <Coupons updateToken={this.updateToken} />
         <Auth
           token={""}
           updateUserRole={false}

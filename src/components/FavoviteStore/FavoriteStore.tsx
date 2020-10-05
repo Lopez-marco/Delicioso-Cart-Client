@@ -104,7 +104,7 @@ class FavoriteStore extends React.Component<
                     <br />
                     {this.state.vicinity}
                     <br />
-                    {this.state.opening_hours == true ? "Open" : "Close"}{" "}
+                    {this.state.opening_hours === true ? "Open" : "Close"}{" "}
                   </p>
                 </Col>
               </Row>

@@ -1,6 +1,6 @@
 import React from "react";
 import FavoriteStore from "./FavoriteStore";
-import { GeoResponse, Location } from "./GeolocationInterface";
+import { GeoResponse } from "./GeolocationInterface";
 
 export interface GeolocationProps {
   url: string;
@@ -31,9 +31,6 @@ class Geolocation extends React.Component<GeolocationProps, GeolocationState> {
       });
   }
 
-  //   StoreURL = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${this.state.lat},${this.state.lng}&radius=32186&type=supermarket&keyword=wholefoods&key=AIzaSyC8SxWx5derhovl8nfdFbYxhMR5r_mH7ww`;
-  //   console.log(StoreURL),
-
   render() {
     return (
       <div>
@@ -42,8 +39,6 @@ class Geolocation extends React.Component<GeolocationProps, GeolocationState> {
             url={`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${this.state.lat},${this.state.lng}&radius=32186&type=supermarket&keyword=walmart&key=AIzaSyC8SxWx5derhovl8nfdFbYxhMR5r_mH7ww`}
           />
         ) : null}
-        {/* Hello from Geo ----- latitude {this.state.lat}
-        ------ longitude {this.state.lng} */}
       </div>
     );
   }
