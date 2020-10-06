@@ -1,24 +1,25 @@
-import React from 'react';
-import ShoppingList from './Components/ShoppingList/ShoppingList';
+import React from "react";
+import { RouteComponentProps, withRouter } from "react-router";
+import logo from "./logo.svg";
+import "./App.css";
+import Auth from "./auth/Auth";
 
-export interface AppProps {}
-
-export interface AppState {
-  sessionToken: string;
-}
-
-class App extends React.Component<{}, AppState> {
-  constructor(props: {}) {
-    super(props);
-    this.state = { 
-      sessionToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjAwODEzMTM0LCJleHAiOjE2MDM0MDUxMzR9.O09Q61OU3S8eZzoDqpFfRQXvKKfgwWQe9Bd3qrRfNM4',
-    };
-  }
-
-
+class App extends React.Component {
+  updateToken = (token: string) => {
+    localStorage.setItem("token", token);
+    this.setState({ token: token });
+  };
   render() {
-    return (<ShoppingList token={this.state.sessionToken} />);
+    return (
+      <div className="App">
+        <Auth
+          token={""}
+          updateUserRole={false}
+          updateToken={this.updateToken}
+        />
+        <ShoppingList token={this.state.token} />
+      </div>
+    );
   }
-}
 
 export default App;
