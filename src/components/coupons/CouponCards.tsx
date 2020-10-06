@@ -15,7 +15,8 @@ import { PlusOutlined, InfoCircleOutlined } from "@ant-design/icons";
 export interface CouponCardsProps {
   key: number;
   couponsbox: Item;
-  updateToken: Function;
+  // updateToken: Function;
+  token: string;
 }
 
 export interface CouponCardsState {}
@@ -29,19 +30,18 @@ class CouponCards extends React.Component<CouponCardsProps, CouponCardsState> {
   }
 
   handleCouponAdd = (event: any) => {
+    event.preventDefault();
     fetch("http://localhost:3001/coupons/addcoupon", {
       method: "POST",
-      body: JSON.stringify({
-        coupons: {},
-      }),
+      body: JSON.stringify({ coupon: { coupon: this.props.couponsbox } }),
       headers: new Headers({
         "Content-Type": "application/json",
+        Authorization: this.props.token,
       }),
     })
-      .then((response) => response.json())
-      .then((data) => {
-        this.props.updateToken(data.sessionToken);
-        console.log(data.sessionToken);
+      .then((res) => res.json())
+      .then((coupon) => {
+        console.log(coupon);
       });
   };
 
