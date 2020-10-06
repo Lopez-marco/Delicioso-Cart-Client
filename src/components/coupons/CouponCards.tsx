@@ -42,6 +42,7 @@ class CouponCards extends React.Component<CouponCardsProps, CouponCardsState> {
       .then((res) => res.json())
       .then((coupon) => {
         console.log(coupon);
+        console.log(this.props.token);
       });
   };
 
