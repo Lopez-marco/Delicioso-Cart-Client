@@ -1,3 +1,4 @@
+
 import React from "react";
 import { RouteComponentProps, withRouter } from "react-router";
 import logo from "./logo.svg";
@@ -20,6 +21,5 @@ class App extends React.Component {
       </div>
     );
   }
-}
 
 export default App;
