@@ -22,12 +22,10 @@
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
-
     "react-xml-parser": "^1.1.6",
     "typescript": "^3.7.5",
     "xml-js": "^1.6.11",
-    "xml2js": "^0.4.23"
-    "typescript": "^3.7.5",
+    "xml2js": "^0.4.23",
     "yarn": "^1.22.5"
   },
   "scripts": {

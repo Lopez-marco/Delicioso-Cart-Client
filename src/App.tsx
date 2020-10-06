@@ -1,6 +1,7 @@
 import React from "react";
 // import { RouteComponentProps, withRouter } from "react-router";
 import Auth from "./auth/Auth";
+import ShoppingList from "./components/ShoppingList/ShoppingList";
 
 import "./App.css";
 import Coupons from "./components/coupons/CouponsParent";
@@ -9,12 +10,14 @@ import Navbar from "./components/MainPage/Navbar";
 
 export interface AppProps {}
 
-export interface AppState {}
+export interface AppState {
+  token: string;
+}
 
 class App extends React.Component<AppProps, AppState> {
   constructor(props: AppProps) {
     super(props);
-    this.state = {};
+    this.state = { token: "" };
   }
   updateToken = (token: string) => {
     localStorage.setItem("token", token);
@@ -27,7 +30,7 @@ class App extends React.Component<AppProps, AppState> {
       <div>
         <Navbar />
         <Geolocation url={this.GeoURL} />
-        <Coupons updateToken={this.updateToken} />
+        <Coupons updateToken={this.updateToken} token={this.state.token} />
         <Auth
           token={""}
           updateUserRole={false}
@@ -37,5 +40,5 @@ class App extends React.Component<AppProps, AppState> {
       </div>
     );
   }
-
+}
 export default App;

@@ -6,6 +6,7 @@ import { Row } from "antd";
 
 export interface CouponsParentProps {
   updateToken: Function;
+  token: string;
 }
 
 export interface CouponsParentState {
@@ -51,7 +52,7 @@ class CouponsParent extends React.Component<
               <CouponCards
                 couponsbox={coupons}
                 key={index}
-                updateToken={this.props.updateToken}
+                token={this.props.token}
               />
             ))
           ) : (
