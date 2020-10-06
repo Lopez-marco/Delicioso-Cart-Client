@@ -33,9 +33,9 @@ class App extends React.Component<AppProps, AppState> {
           updateUserRole={false}
           updateToken={this.updateToken}
         />
+        <ShoppingList token={this.state.token} />
       </div>
     );
   }
-}
 
 export default App;
