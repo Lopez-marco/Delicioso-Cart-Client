@@ -1,4 +1,3 @@
-
 import React from "react";
 import { RouteComponentProps, withRouter } from "react-router";
 import logo from "./logo.svg";
@@ -18,6 +17,7 @@ class App extends React.Component {
           updateUserRole={false}
           updateToken={this.updateToken}
         />
+        <ShoppingList token={this.state.token} />
       </div>
     );
   }
