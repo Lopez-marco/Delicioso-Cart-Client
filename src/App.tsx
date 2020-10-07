@@ -4,7 +4,7 @@ import Auth from "./auth/Auth";
 import ShoppingList from "./components/ShoppingList/ShoppingList";
 
 import "./App.css";
-import Coupons from "./components/coupons/CouponsParent";
+import CouponsParent from "./components/coupons/CouponsParent";
 import Geolocation from "./components/FavoviteStore/Geolocation";
 import Navbar from "./components/MainPage/Navbar";
 
@@ -20,6 +20,9 @@ class App extends React.Component<AppProps, AppState> {
     this.state = { token: "" };
   }
   updateToken = (token: string) => {
+    if(localStorage.getItem('token')) {
+      this.setState({ token: token });
+    }
     localStorage.setItem("token", token);
     this.setState({ token: token });
   };
@@ -28,15 +31,15 @@ class App extends React.Component<AppProps, AppState> {
   render() {
     return (
       <div>
+        {/* <CouponsParent updateToken={this.updateToken} token={this.state.token} /> */}
         <Navbar />
-        <Geolocation url={this.GeoURL} />
-        <Coupons updateToken={this.updateToken} token={this.state.token} />
+        {/* <Geolocation url={this.GeoURL} /> */}
         <Auth
           token={""}
           updateUserRole={false}
           updateToken={this.updateToken}
         />
-        <ShoppingList token={this.state.token} />
+        <ShoppingList />
       </div>
     );
   }

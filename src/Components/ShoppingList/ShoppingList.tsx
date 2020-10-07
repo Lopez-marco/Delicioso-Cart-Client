@@ -5,7 +5,6 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import ShoppingListElement from './ShoppingListElement';
 
 export interface ShoppingListProps {
-    token: string;
 }
 
 export interface ShoppingListState {
@@ -43,7 +42,7 @@ class ShoppingList extends React.Component<ShoppingListProps, ShoppingListState>
             method: 'GET',
             headers: new Headers({
                 'Content-Type': 'application/json',
-                'Authorization': this.props.token
+                'Authorization': `${localStorage.getItem('token')}`
             })
         })
             .then(res => res.json())
@@ -63,7 +62,7 @@ class ShoppingList extends React.Component<ShoppingListProps, ShoppingListState>
             }),
             headers: new Headers({
                 'Content-Type': 'application/json',
-                'Authorization': this.props.token
+                'Authorization': `${localStorage.getItem('token')}`
             })
         })
             .then(res => res.json())
@@ -84,7 +83,7 @@ class ShoppingList extends React.Component<ShoppingListProps, ShoppingListState>
             }),
             headers: new Headers({
                 'Content-Type': 'application/json',
-                'Authorization': this.props.token
+                'Authorization': `${localStorage.getItem('token')}`
             })
         })
             .then(res => res.json())
@@ -103,7 +102,7 @@ class ShoppingList extends React.Component<ShoppingListProps, ShoppingListState>
             }),
             headers: new Headers({
                 'Content-Type': 'application/json',
-                'Authorization': this.props.token
+                'Authorization': `${localStorage.getItem('token')}`
             })
         })
             .then(res => res.json())
@@ -147,7 +146,7 @@ createDraggableItem(item: ShoppingListInterface, index: number) {
         >
             {(provided) => (
                 <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                    <ShoppingListElement token={this.props.token} fetchList={this.fetchList} item={item} index={index} />
+                    <ShoppingListElement  fetchList={this.fetchList} item={item} index={index} />
                 </div>
             )}
         </Draggable>

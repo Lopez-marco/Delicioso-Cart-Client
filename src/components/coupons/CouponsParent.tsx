@@ -24,13 +24,13 @@ class CouponsParent extends React.Component<
   componentDidMount() {
     axios
       .get("http://rss.coupons.com/xmlserve.asp?go=13306iq3710", {
-        headers: new Headers({
-          Accept: "text/html",
-          "content-type": "application/x-www-form-urlencoded",
+        headers: {
+          "Accept": "text/html",
+          "Content-Type": "application/x-www-form-urlencoded",
           "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Methods": "GET, POST, PUT",
           "Access-Control-Allow-Headers": "Content-Type",
-        }),
+        },
       })
       .then((d) => {
         var parseString = require("xml2js").parseString;

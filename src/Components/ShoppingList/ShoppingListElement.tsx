@@ -8,7 +8,6 @@ import Modal from 'antd/lib/modal/Modal';
 export interface ShoppingListElementProps {
     item: ShoppingListInterface;
     fetchList: Function;
-    token: string;
     index: number;
 }
 export interface ShoppingListElementState {
@@ -65,7 +64,7 @@ class ShoppingListElement extends React.Component<ShoppingListElementProps, Shop
             }),
             headers: new Headers({
                 'Content-Type': 'application/json',
-                'Authorization': this.props.token
+                'Authorization': `${localStorage.getItem('token')}`
             })
         })
             .then(res => res.json())
@@ -84,7 +83,7 @@ class ShoppingListElement extends React.Component<ShoppingListElementProps, Shop
             }),
             headers: new Headers({
                 'Content-Type': 'application/json',
-                'Authorization': this.props.token
+                'Authorization': `${localStorage.getItem('token')}`
             })
         })
             .then(res => res.json())
@@ -100,7 +99,7 @@ class ShoppingListElement extends React.Component<ShoppingListElementProps, Shop
             method: 'DELETE',
             headers: new Headers({
                 'Content-Type': 'application/json',
-                'Authorization': this.props.token
+                'Authorization': `${localStorage.getItem('token')}`
             })
         })
             .then(res => res.json())
