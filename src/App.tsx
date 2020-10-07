@@ -1,22 +1,27 @@
 import React from "react";
 // import { RouteComponentProps, withRouter } from "react-router";
 import Auth from "./auth/Auth";
-
 import "./App.css";
-import Coupons from "./components/coupons/CouponsParent";
-import Geolocation from "./components/FavoviteStore/Geolocation";
-import Navbar from "./components/MainPage/Navbar";
+import Coupons from "./Components/coupons/CouponsParent";
+import Geolocation from "./Components/FavoviteStore/Geolocation";
+import Navbar from "./Components/MainPage/Navbar";
+import ShoppingList from "./Components/ShoppingList/ShoppingList";
 
 export interface AppProps {}
 
-export interface AppState {}
+export interface AppState {
+  token: string;
+}
 
 class App extends React.Component<AppProps, AppState> {
   constructor(props: AppProps) {
     super(props);
-    this.state = {};
+    this.state = { token: "" };
   }
   updateToken = (token: string) => {
+    if (localStorage.getItem("token")) {
+      this.setState({ token: token });
+    }
     localStorage.setItem("token", token);
     this.setState({ token: token });
   };
@@ -37,5 +42,6 @@ class App extends React.Component<AppProps, AppState> {
       </div>
     );
   }
+}
 
 export default App;

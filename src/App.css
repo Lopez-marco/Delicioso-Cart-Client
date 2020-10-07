@@ -3,11 +3,12 @@
   border: none;
   box-shadow: none;
   background: none;
+}
 
 .App {
   text-align: center;
-
 }
+
 .borderless:hover {
   border: none;
   box-shadow: none;
