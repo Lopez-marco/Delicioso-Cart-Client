@@ -15,7 +15,6 @@ import { PlusOutlined, InfoCircleOutlined } from "@ant-design/icons";
 export interface CouponCardsProps {
   key: number;
   couponsbox: Item;
-  // updateToken: Function;
   token: string;
 }
 
@@ -78,6 +77,7 @@ class CouponCards extends React.Component<CouponCardsProps, CouponCardsState> {
 
         <Col>
           <Card
+            className="cardback"
             hoverable
             style={{ width: 400, height: 170, marginTop: 16, borderRadius: 10 }}
           >

@@ -32,12 +32,12 @@ class Geolocation extends React.Component<GeolocationProps, GeolocationState> {
   }
 
   render() {
+    const Geolocation = `http://localhost:3001/faboritestore/${this.state.lat}/${this.state.lng}`;
+    console.log(Geolocation);
     return (
       <div>
         {this.state.lat > 0 && this.state.lng ? (
-          <FavoriteStore
-            url={`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${this.state.lat},${this.state.lng}&radius=32186&type=supermarket&keyword=walmart&key=AIzaSyC8SxWx5derhovl8nfdFbYxhMR5r_mH7ww`}
-          />
+          <FavoriteStore url={Geolocation} />
         ) : null}
       </div>
     );

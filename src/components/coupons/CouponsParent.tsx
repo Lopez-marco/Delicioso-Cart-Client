@@ -5,7 +5,6 @@ import CouponCards from "./CouponCards";
 import { Row } from "antd";
 
 export interface CouponsParentProps {
-  updateToken: Function;
   token: string;
 }
 
@@ -21,17 +20,39 @@ class CouponsParent extends React.Component<
     super(props);
     this.state = { couponsvalue: [] };
   }
+  // componentDidMount() {
+  //   const parseString = require("xml2js").parseString;
+  // var xml = `http://rss.coupons.com/xmlserve.asp?go=13306iq3710`;
+  // parseString(xml, function (err: any, result: CouponsResponse) {
+  //   console.dir(result);
+  // });
+  //   var url = "http://rss.coupons.com/xmlserve.asp?go=13306iq3710";
+  //   fetch(url)
+  //     .then((response) => response.text())
+  //     .then((responseText) => {
+  //       parseString(responseText, function (err: any, result: CouponsResponse) {
+  //         console.log(result);
+  //       });
+  //     })
+  //     .catch((err) => {
+  //       console.log("fetch", err);
+  //     });
+  // }
+
   componentDidMount() {
     axios
-      .get("http://rss.coupons.com/xmlserve.asp?go=13306iq3710", {
-        headers: new Headers({
-          Accept: "text/html",
-          "content-type": "application/x-www-form-urlencoded",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods": "GET, POST, PUT",
-          "Access-Control-Allow-Headers": "Content-Type",
-        }),
-      })
+      .get(
+        "https://cors-anywhere.herokuapp.com/http://rss.coupons.com/xmlserve.asp?go=13306iq3710",
+        {
+          headers: new Headers({
+            Accept: "text/html",
+            "content-type": "application/x-www-form-urlencoded",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST, PUT",
+            "Access-Control-Allow-Headers": "Content-Type",
+          }),
+        }
+      )
       .then((d) => {
         var parseString = require("xml2js").parseString;
         var xml = d.data;
