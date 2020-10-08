@@ -17,7 +17,9 @@ class Navbar extends React.Component<NavbarProps, NavbarState> {
       <div>
         <Layout className="layout">
           <Header style={{ position: "fixed", zIndex: 1, width: "100%" }}>
-            <div className="logo" />
+            <div className="logo">
+              <p className="logotext">DeliciosCard</p>
+            </div>
             <Menu theme="dark" mode="horizontal">
               <Menu.Item>Stores</Menu.Item>
               <Menu.Item>Grocery List</Menu.Item>
