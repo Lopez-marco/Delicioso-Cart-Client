@@ -5,6 +5,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import ShoppingListElement from './ShoppingListElement';
 
 export interface ShoppingListProps {
+    token: string;
 }
 
 export interface ShoppingListState {

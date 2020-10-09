@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React from 'react';
+import { connect } from 'react-redux';
+import { setToken } from '../store/store';
 import { Button, Form, Input } from "antd";
 import "../App.css";
+import { storeInterface } from '../store/storeInterface';
 
 type valueTypes = {
   email: string;
@@ -8,8 +11,7 @@ type valueTypes = {
 };
 
 type acceptedProps = {
-  updateToken: Function;
-  updateUserRole: any;
+  store: storeInterface;
 };
 
 class Login extends React.Component<acceptedProps, valueTypes> {
@@ -17,7 +19,6 @@ class Login extends React.Component<acceptedProps, valueTypes> {
     super(props);
     this.state = {
       email: "",
-
       password: "",
     };
   }
@@ -35,7 +36,7 @@ class Login extends React.Component<acceptedProps, valueTypes> {
     })
       .then((response) => response.json())
       .then((data) => {
-        this.props.updateToken(data.sessionToken);
+        setToken(data.sessionToken);
         console.log(data.sessionToken);
       });
   };
@@ -67,4 +68,8 @@ class Login extends React.Component<acceptedProps, valueTypes> {
   }
 }
 
-export default Login;
+const mapStateToProps = (state: any) => {
+  return
+}
+
+export default connect(mapStateToProps)(Login);

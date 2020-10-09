@@ -1,12 +1,14 @@
 import React from "react";
 // import { RouteComponentProps, withRouter } from "react-router";
+import { setUsername, setIsLoggenIn, setToken, } from './store/store'
 import Auth from "./auth/Auth";
 import ShoppingList from "./components/ShoppingList/ShoppingList";
 
 import "./App.css";
-import CouponsParent from "./components/coupons/CouponsParent";
+import Coupons from "./components/coupons/CouponsParent";
 import Geolocation from "./components/FavoviteStore/Geolocation";
 import Navbar from "./components/MainPage/Navbar";
+import MyCoupons from "./components/coupons/myCoupons";
 
 export interface AppProps {}
 
@@ -20,7 +22,7 @@ class App extends React.Component<AppProps, AppState> {
     this.state = { token: "" };
   }
   updateToken = (token: string) => {
-    if(localStorage.getItem('token')) {
+    if (localStorage.getItem("token")) {
       this.setState({ token: token });
     }
     localStorage.setItem("token", token);
@@ -33,13 +35,15 @@ class App extends React.Component<AppProps, AppState> {
       <div>
         {/* <CouponsParent updateToken={this.updateToken} token={this.state.token} /> */}
         <Navbar />
-        {/* <Geolocation url={this.GeoURL} /> */}
+        <Geolocation url={this.GeoURL} />
+        {/* <Coupons token={this.state.token} /> */}
         <Auth
           token={""}
           updateUserRole={false}
           updateToken={this.updateToken}
         />
-        <ShoppingList />
+        <ShoppingList token={this.state.token} />
+        {/* <MyCoupons token={this.state.token} /> */}
       </div>
     );
   }

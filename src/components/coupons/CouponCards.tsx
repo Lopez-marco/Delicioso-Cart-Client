@@ -8,18 +8,16 @@ import {
   Button,
   Card,
   Tooltip,
-  Modal,
 } from "antd";
 import { PlusOutlined, InfoCircleOutlined } from "@ant-design/icons";
 
 export interface CouponCardsProps {
   key: number;
   couponsbox: Item;
-  // updateToken: Function;
   token: string;
 }
 
-export interface CouponCardsState {}
+export interface CouponCardsState { }
 
 const { Text } = Typography;
 
@@ -47,37 +45,11 @@ class CouponCards extends React.Component<CouponCardsProps, CouponCardsState> {
   };
 
   render() {
-    let SaveCoupon = JSON.stringify(this.props.couponsbox);
-    // console.log(SaveCoupon);
     return (
       <div>
-        {/* {props.couponsbox.value}
-      <br />
-      {props.couponsbox.brand}
-      <br />
-      {props.couponsbox.activedate}
-      <br />
-      {props.couponsbox.couponid}
-      <br />
-      {props.couponsbox.description}
-      <br />
-      {props.couponsbox.expiration}
-      <br />
-      {props.couponsbox.image}
-      <br />
-      {props.couponsbox.link}
-      <br />
-      {props.couponsbox.majorCategory}
-      <br />
-      {props.couponsbox.minorCategory}
-      <br />
-      {props.couponsbox.shutoff}
-      <br />
-      {props.couponsbox.value}
-      <br /> */}
-
         <Col>
           <Card
+            className="cardback"
             hoverable
             style={{ width: 400, height: 170, marginTop: 16, borderRadius: 10 }}
           >
@@ -133,17 +105,3 @@ class CouponCards extends React.Component<CouponCardsProps, CouponCardsState> {
 
 export default CouponCards;
 
-// export interface CouponCardsProps {
-//   key: number;
-//   couponsbox: Item;
-// }
-
-// const { Text } = Typography;
-
-// const CouponCards: React.SFC<CouponCardsProps> = (props) => {
-//   return (
-
-//   );
-// };
-
-// export default CouponCards;

@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { Button, Form, Input } from "antd";
+import React from "react";
+import  store from '../store/store';
+import { Button } from "antd";
 import "../App.css";
 import Login from "./Login";
 import Signup from "./Signup";
@@ -44,8 +45,7 @@ class Auth extends React.Component<acceptedProps, typeState> {
         <div id="signuplogin">
           {this.state.showLogin ? (
             <Login
-              updateToken={this.props.updateToken}
-              updateUserRole={this.props.updateUserRole}
+              store={store.getState()}
             />
           ) : (
             <Signup updateToken={this.props.updateToken} />

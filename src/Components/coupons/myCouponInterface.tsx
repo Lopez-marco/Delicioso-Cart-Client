@@ -1,4 +1,4 @@
-export interface Item {
+export interface Coupon2 {
   couponid: string[];
   link: string[];
   description: string[];
@@ -13,10 +13,10 @@ export interface Item {
   geotarget: string[];
 }
 
-export interface Coupons {
-  item: Item[];
+export interface Coupon {
+  coupon: Coupon2;
 }
 
-export interface CouponsResponse {
-  coupons: Coupons;
+export interface MyCouponResult {
+  coupon: Coupon;
 }

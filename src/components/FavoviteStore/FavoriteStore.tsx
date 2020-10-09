@@ -51,7 +51,7 @@ class FavoriteStore extends React.Component<
 
   componentDidMount() {
     fetch(this.props.url, {
-      method: "POST",
+      method: "GET",
     })
       .then((res) => res.json())
       .then((json: StoreResponce) => {

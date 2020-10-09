@@ -1,19 +1,28 @@
-import React from "react";
+import React from "react"
 
-export interface myCouponsProps {}
+export interface MyCouponsProps {
+  token: string;
+}
 
-export interface myCouponsState {}
+export interface MyCouponsState {
+  MyCoupon: any;
+}
 
-class myCoupons extends React.Component<myCouponsProps, myCouponsState> {
-  constructor(props: myCouponsProps) {
+class MyCoupons extends React.Component<MyCouponsProps, MyCouponsState> {
+  constructor(props: MyCouponsProps) {
     super(props);
-    this.state = {};
+    this.state = { MyCoupon: [] };
   }
 
-  componentDidMount() {}
+  
+
   render() {
-    return <div>Hello from my coupons 2</div>;
+    return (
+      <div>
+        hello from my coupons
+      </div>
+    );
   }
 }
 
-export default myCoupons;
+export default MyCoupons;

@@ -5,7 +5,6 @@ import CouponCards from "./CouponCards";
 import { Row } from "antd";
 
 export interface CouponsParentProps {
-  updateToken: Function;
   token: string;
 }
 
@@ -21,17 +20,12 @@ class CouponsParent extends React.Component<
     super(props);
     this.state = { couponsvalue: [] };
   }
+
   componentDidMount() {
     axios
-      .get("http://rss.coupons.com/xmlserve.asp?go=13306iq3710", {
-        headers: {
-          "Accept": "text/html",
-          "Content-Type": "application/x-www-form-urlencoded",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods": "GET, POST, PUT",
-          "Access-Control-Allow-Headers": "Content-Type",
-        },
-      })
+      .get(
+        "https://cors-anywhere.herokuapp.com/http://rss.coupons.com/xmlserve.asp?go=13306iq3710"
+      )
       .then((d) => {
         var parseString = require("xml2js").parseString;
         var xml = d.data;
