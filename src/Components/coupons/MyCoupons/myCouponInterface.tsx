@@ -18,5 +18,6 @@ export interface Coupon {
 }
 
 export interface MyCouponResult {
+  id: number;
   coupon: Coupon;
 }

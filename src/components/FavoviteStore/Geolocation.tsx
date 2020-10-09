@@ -33,7 +33,6 @@ class Geolocation extends React.Component<GeolocationProps, GeolocationState> {
 
   render() {
     const Geolocation = `http://localhost:3001/faboritestore/${this.state.lat}/${this.state.lng}`;
-    console.log(Geolocation);
     return (
       <div>
         {this.state.lat > 0 && this.state.lng ? (

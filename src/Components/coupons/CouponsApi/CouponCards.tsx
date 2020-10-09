@@ -8,9 +8,10 @@ import {
   Button,
   Card,
   Tooltip,
-  Modal,
+  message,
 } from "antd";
-import { PlusOutlined, InfoCircleOutlined } from "@ant-design/icons";
+import { PlusOutlined } from "@ant-design/icons";
+import CouponCardsModal from "./CouponCardsModal";
 
 export interface CouponCardsProps {
   key: number;
@@ -29,25 +30,27 @@ class CouponCards extends React.Component<CouponCardsProps, CouponCardsState> {
   }
 
   handleCouponAdd = (event: any) => {
+    let token = this.props.token
+      ? this.props.token
+      : localStorage.getItem("token");
     event.preventDefault();
     fetch("http://localhost:3001/coupons/addcoupon", {
       method: "POST",
       body: JSON.stringify({ coupon: { coupon: this.props.couponsbox } }),
       headers: new Headers({
         "Content-Type": "application/json",
-        Authorization: this.props.token,
+        Authorization: token ? token : "",
       }),
     })
       .then((res) => res.json())
       .then((coupon) => {
         console.log(coupon);
         console.log(this.props.token);
+        message.info("Coupon Added.");
       });
   };
 
   render() {
-    let SaveCoupon = JSON.stringify(this.props.couponsbox);
-    // console.log(SaveCoupon);
     return (
       <div>
         {/* {props.couponsbox.value}
@@ -89,9 +92,9 @@ class CouponCards extends React.Component<CouponCardsProps, CouponCardsState> {
                   src={this.props.couponsbox.image[0]}
                 />
               </Col>
-              <Col span={14}>
+              <Col span={15}>
                 <h4>
-                  <Text strong>SAVE ${this.props.couponsbox.value}</Text>
+                  <Text strong>SAVE ${this.props.couponsbox.value}0</Text>
                   <br />
                   <Text strong type="secondary">
                     {this.props.couponsbox.brand}
@@ -106,14 +109,9 @@ class CouponCards extends React.Component<CouponCardsProps, CouponCardsState> {
                 </h5>
               </Col>
               <Col span={2}>
-                <Tooltip title="More">
-                  <Button
-                    type="primary"
-                    shape="circle"
-                    icon={<InfoCircleOutlined />}
-                  />
-                </Tooltip>
+                <CouponCardsModal couponsbox={this.props.couponsbox} />
                 <br />
+
                 <Tooltip title="Clip Coupon">
                   <Button
                     onClick={this.handleCouponAdd}
