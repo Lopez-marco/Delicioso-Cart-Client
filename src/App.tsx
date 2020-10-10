@@ -1,13 +1,12 @@
 import React from "react";
 // import { RouteComponentProps, withRouter } from "react-router";
 import Auth from "./auth/Auth";
-import ShoppingList from "./components/ShoppingList/ShoppingList";
-
+import ShoppingList from "./Components/ShoppingList/ShoppingList";
 import "./App.css";
-import Coupons from "./components/coupons/CouponsParent";
-import Geolocation from "./components/FavoviteStore/Geolocation";
-import Navbar from "./components/MainPage/Navbar";
-import MyCoupons from "./components/coupons/MyCoupons";
+import Coupons from "./Components/coupons/CouponsParent";
+import Geolocation from "./Components/FavoviteStore/Geolocation";
+import Navbar from "./Components/MainPage/Navbar";
+import MyCoupons from "./Components/coupons/myCoupons";
 
 export interface AppProps {}
 
@@ -46,4 +45,5 @@ class App extends React.Component<AppProps, AppState> {
     );
   }
 }
+
 export default App;

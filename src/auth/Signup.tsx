@@ -8,6 +8,7 @@ type valueTypes = {
   email: string;
   password: string;
   setPassword: string;
+  favorite_store: string;
 };
 
 type acceptedProps = {
@@ -23,6 +24,7 @@ class Signup extends React.Component<acceptedProps, valueTypes> {
       email: "",
       password: "",
       setPassword: "",
+      favorite_store: "",
     };
   }
 
@@ -34,6 +36,7 @@ class Signup extends React.Component<acceptedProps, valueTypes> {
         username: this.state.username,
         email: this.state.email,
         password: this.state.password,
+        favorite_store: this.state.favorite_store,
       }),
       headers: new Headers({
         "Content-Type": "application/json",
@@ -74,6 +77,14 @@ class Signup extends React.Component<acceptedProps, valueTypes> {
             name="password"
             value={this.state.password}
             type="password"
+          />
+          <h2>Favorite Store</h2>
+          <Input
+            className="signupInput"
+            onChange={(e) => this.setState({ favorite_store: e.target.value })}
+            value={this.state.favorite_store}
+            name="favorite_store"
+            type="text"
           />
           <Button type="primary" htmlType="submit" id="register-btn">
             Register
