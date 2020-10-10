@@ -17,6 +17,7 @@ export interface ShoppingListState {
 }
 
 class ShoppingList extends React.Component<ShoppingListProps, ShoppingListState> {
+    private addItemIput: React.RefObject<Input>;
     constructor(props: ShoppingListProps) {
         super(props);
         this.state = {
@@ -26,6 +27,7 @@ class ShoppingList extends React.Component<ShoppingListProps, ShoppingListState>
             category: '',
             bought: false
         };
+        this.addItemIput = React.createRef();
         this.fetchList = this.fetchList.bind(this);
         this.addItemQuick = this.addItemQuick.bind(this);
         this.addItemLong = this.addItemLong.bind(this);
@@ -69,6 +71,7 @@ class ShoppingList extends React.Component<ShoppingListProps, ShoppingListState>
             .then(res => res.json())
             .then((res: number) => {
                 console.log(res);
+                this.addItemIput.current?.setValue(''); 
                 this.fetchList();
             })
     }
@@ -176,7 +179,7 @@ render() {
                             : null
                         }
                         <List.Item className='list-item' style={{ borderTop: '1px solid lightslategray' }}>
-                            <Input className='borderless' onPressEnter={(e => { this.addItemQuick(); })} onChange={(e => this.setState({ item: e.target.value }))} placeholder='Add item...' />
+                            <Input className='borderless' ref={this.addItemIput} onPressEnter={(e => { this.addItemQuick();})} onChange={(e => this.setState({ item: e.target.value }))} placeholder='Add item...' />
                         </List.Item>
                     </List>
                 </Col>

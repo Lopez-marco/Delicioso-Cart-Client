@@ -1,6 +1,5 @@
 import React from "react";
 // import { RouteComponentProps, withRouter } from "react-router";
-import { setUsername, setIsLoggenIn, setToken, } from './store/store'
 import Auth from "./auth/Auth";
 import ShoppingList from "./components/ShoppingList/ShoppingList";
 
@@ -33,17 +32,15 @@ class App extends React.Component<AppProps, AppState> {
   render() {
     return (
       <div>
-        {/* <CouponsParent updateToken={this.updateToken} token={this.state.token} /> */}
         <Navbar />
         <Geolocation url={this.GeoURL} />
-        {/* <Coupons token={this.state.token} /> */}
         <Auth
           token={""}
           updateUserRole={false}
           updateToken={this.updateToken}
         />
         <ShoppingList token={this.state.token} />
-        {/* <MyCoupons token={this.state.token} /> */}
+        <Coupons token={this.state.token} />
       </div>
     );
   }

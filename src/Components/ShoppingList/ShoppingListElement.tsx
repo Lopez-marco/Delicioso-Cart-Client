@@ -139,6 +139,7 @@ class ShoppingListElement extends React.Component<ShoppingListElementProps, Shop
                 <List.Item
                     className='list-item'
                     key={this.props.item.id}
+                    style={{borderBottom: '0.5px solid gray'}}
                     // eslint-disable-next-line jsx-a11y/anchor-is-valid
                     actions={[<a key="list-options">
                         <div id="components-dropdown-demo-dropdown-button">
