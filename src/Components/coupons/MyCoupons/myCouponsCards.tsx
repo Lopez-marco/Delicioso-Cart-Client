@@ -17,10 +17,12 @@ export interface myCouponsCardsProps {
   key: number;
   myCouponCards: MyCouponResult;
   token: string;
-  fetchList: Function;
+  fetchCoupons: Function;
 }
 
-export interface myCouponsCardsState {}
+export interface myCouponsCardsState {
+  Date: string;
+}
 
 const { Text } = Typography;
 
@@ -30,7 +32,9 @@ class myCouponsCards extends React.Component<
 > {
   constructor(props: myCouponsCardsProps) {
     super(props);
-    this.state = {};
+    this.state = { Date: "" };
+    this.dateandTime = this.dateandTime.bind(this);
+    this.itsExpired = this.itsExpired.bind(this);
   }
 
   Delete = () => {
@@ -50,10 +54,30 @@ class myCouponsCards extends React.Component<
       .then((res) => res.json())
       .then((res: number) => {
         console.log(res);
-        this.props.fetchList();
+        this.props.fetchCoupons();
         message.warning("Coupon Deleted.");
       });
   };
+
+  componentDidMount() {
+    this.itsExpired();
+    this.dateandTime();
+  }
+
+  dateandTime() {
+    let currentDateAndTime = new Date().toLocaleString();
+    console.log(currentDateAndTime);
+    this.setState({
+      Date: currentDateAndTime,
+    });
+  }
+
+  itsExpired() {
+    let expired = this.props.myCouponCards.coupon.coupon.expiration;
+    console.log(expired);
+    // expired.split("", 3);
+    // console.log(expiredNumber);
+  }
 
   render() {
     return (
@@ -87,6 +111,10 @@ class myCouponsCards extends React.Component<
                   <Text type="secondary">
                     {" "}
                     {this.props.myCouponCards.coupon.coupon.description}
+                    {this.props.myCouponCards.coupon.coupon.expiration &&
+                    this.state.Date
+                      ? "Not Expired"
+                      : "Expired"}
                   </Text>
                 </h5>
               </Col>

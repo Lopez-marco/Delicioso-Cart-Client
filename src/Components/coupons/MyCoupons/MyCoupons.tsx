@@ -50,7 +50,7 @@ class MyCoupons extends React.Component<MyCouponsProps, MyCouponsState> {
             this.state.MyCoupon.map(
               (Mycoupons: MyCouponResult, index: number) => (
                 <MyCouponsCards
-                  fetchList={this.Allcoupons}
+                  fetchCoupons={this.Allcoupons}
                   myCouponCards={Mycoupons}
                   key={index}
                   token={this.props.token}

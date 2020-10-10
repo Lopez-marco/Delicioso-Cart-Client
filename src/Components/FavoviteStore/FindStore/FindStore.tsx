@@ -43,31 +43,30 @@ class FindStore extends React.Component<FindStoreProps, FindStoreState> {
       //   isOpen: true,
     };
   }
-
-  componentDidMount() {
-    fetch(this.props.url, {
-      method: "GET",
-    })
-      .then((res) => res.json())
-      .then((json: StoreResponce) => {
-        console.log(json.results);
-        this.setState({
-          business_status: json.results[0].business_status,
-          icon: json.results[0].icon,
-          name: json.results[0].name,
-          opening_hours: json.results[0].opening_hours.open_now,
-          //   photos: json.results[0].photos,
-          place_id: json.results[0].place_id,
-          price_level: json.results[0].price_level,
-          rating: json.results[0].rating,
-          reference: json.results[0].reference,
-          scope: json.results[0].scope,
-          types: json.results[0].types,
-          user_ratings_total: json.results[0].user_ratings_total,
-          vicinity: json.results[0].vicinity,
-        });
-      });
-  }
+  // componentDidMount() {
+  //   fetch(this.props.url, {
+  //     method: "GET",
+  //   })
+  //     .then((res) => res.json())
+  //     .then((json: StoreResponce) => {
+  //       console.log(json.results);
+  //       this.setState({
+  //         business_status: json.results[0].business_status,
+  //         icon: json.results[0].icon,
+  //         name: json.results[0].name,
+  //         opening_hours: json.results[0].opening_hours.open_now,
+  //         //   photos: json.results[0].photos,
+  //         place_id: json.results[0].place_id,
+  //         price_level: json.results[0].price_level,
+  //         rating: json.results[0].rating,
+  //         reference: json.results[0].reference,
+  //         scope: json.results[0].scope,
+  //         types: json.results[0].types,
+  //         user_ratings_total: json.results[0].user_ratings_total,
+  //         vicinity: json.results[0].vicinity,
+  //       });
+  //     });
+  // }
 
   render() {
     return (

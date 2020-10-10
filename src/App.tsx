@@ -1,13 +1,12 @@
 import React from "react";
-// import { RouteComponentProps, withRouter } from "react-router";
 import Auth from "./auth/Auth";
 import ShoppingList from "./components/ShoppingList/ShoppingList";
 import { Tabs, Row, Card, Button } from "antd";
 import "./App.css";
 import Coupons from "./components/coupons/CouponsApi/CouponsParent";
-import Geolocation from "./components/FavoviteStore/Geolocation";
 import MyCoupons from "./components/coupons/MyCoupons/MyCoupons";
 import { PaperClipOutlined, BarcodeOutlined } from "@ant-design/icons";
+import FavoriteStore from "./components/FavoviteStore/FavoriteStore";
 
 export interface AppProps {}
 
@@ -29,13 +28,12 @@ class App extends React.Component<AppProps, AppState> {
     localStorage.setItem("token", token);
     this.setState({ token: token });
   };
-  GeoURL =
-    "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyC8SxWx5derhovl8nfdFbYxhMR5r_mH7ww";
   render() {
     return (
       <div>
         {/* <Navbar /> */}
-        <Geolocation url={this.GeoURL} />
+        {/* <Geolocation url={this.GeoURL} /> */}
+        <FavoriteStore />
         <Row gutter={[18, 16]} justify="center">
           <Card
             // className="cardback"
