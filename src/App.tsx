@@ -1,5 +1,6 @@
 import React from "react";
 import Auth from "./auth/Auth";
+
 import ShoppingList from "./components/ShoppingList/ShoppingList";
 import { Tabs, Row, Card, Button } from "antd";
 import "./App.css";
@@ -7,6 +8,7 @@ import Coupons from "./components/coupons/CouponsApi/CouponsParent";
 import MyCoupons from "./components/coupons/MyCoupons/MyCoupons";
 import { PaperClipOutlined, BarcodeOutlined } from "@ant-design/icons";
 import FavoriteStore from "./components/FavoviteStore/FavoriteStore";
+
 
 export interface AppProps {}
 
@@ -88,4 +90,5 @@ class App extends React.Component<AppProps, AppState> {
     );
   }
 }
+
 export default App;
