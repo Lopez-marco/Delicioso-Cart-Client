@@ -6,12 +6,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100%;
-  background: linear-gradient(#868685, #ACE0F9);
+  background: linear-gradient(#868685, #ace0f9);
   background-repeat: no-repeat;
   background-attachment: fixed;
-
 }
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -35,11 +33,10 @@ code {
 }
 
 .cardback {
-  background: linear-gradient(#FDFBFB, #EBEDEE);
+  background: linear-gradient(#fdfbfb, #ebedee);
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
-
 
 .borderless {
   border: none;
@@ -47,8 +44,73 @@ code {
   background: none;
 }
 
+.App {
+  text-align: center;
+}
+
 .borderless:hover {
   border: none;
   box-shadow: none;
   background: none;
 }
+
+
+.card-container p {
+  margin: 0;
+  background: black;
+}
+
+.card-container>.ant-tabs-card .ant-tabs-content {
+  margin-top: -16px;
+  border-color: black;
+}
+
+.card-container>.ant-tabs-card .ant-tabs-content>.ant-tabs-tabpane {
+  background: #fff;
+}
+
+.card-container>.ant-tabs-card>.ant-tabs-nav::before {
+  display: none;
+}
+
+.card-container>.ant-tabs-card .ant-tabs-tab,
+[data-theme='compact'] .card-container>.ant-tabs-card .ant-tabs-tab {
+  border-color: transparent;
+  background: transparent;
+}
+
+.card-container>.ant-tabs-card .ant-tabs-tab-active,
+[data-theme='compact'] .card-container>.ant-tabs-card .ant-tabs-tab-active {
+  border-color: #fff;
+  background: #fff;
+}
+
+#components-tabs-demo-card-top .code-box-demo {
+  background: #f5f5f5;
+  overflow: hidden;
+  padding: 24px;
+}
+
+[data-theme='compact'] .card-container>.ant-tabs-card .ant-tabs-content {
+  height: 120px;
+  margin-top: -8px;
+}
+
+[data-theme='dark'] .card-container>.ant-tabs-card .ant-tabs-tab {
+  border-color: transparent;
+  background: transparent;
+}
+
+[data-theme='dark'] #components-tabs-demo-card-top .code-box-demo {
+  background: #000;
+}
+
+[data-theme='dark'] .card-container>.ant-tabs-card .ant-tabs-content>.ant-tabs-tabpane {
+  background: #141414;
+}
+
+[data-theme='dark'] .card-container>.ant-tabs-card .ant-tabs-tab-active {
+  border-color: #141414;
+  background: #141414;
+}
+
