@@ -1,11 +1,12 @@
 import React from "react";
 // import { RouteComponentProps, withRouter } from "react-router";
 import Auth from "./auth/Auth";
+import ShoppingList from "./Components/ShoppingList/ShoppingList";
 import "./App.css";
 import Coupons from "./Components/coupons/CouponsParent";
 import Geolocation from "./Components/FavoviteStore/Geolocation";
 import Navbar from "./Components/MainPage/Navbar";
-import ShoppingList from "./Components/ShoppingList/ShoppingList";
+import MyCoupons from "./Components/coupons/myCoupons";
 
 export interface AppProps {}
 
@@ -32,13 +33,14 @@ class App extends React.Component<AppProps, AppState> {
       <div>
         <Navbar />
         <Geolocation url={this.GeoURL} />
-        <Coupons updateToken={this.updateToken} />
+        <Coupons token={this.state.token} />
         <Auth
           token={""}
           updateUserRole={false}
           updateToken={this.updateToken}
         />
         <ShoppingList token={this.state.token} />
+        <MyCoupons token={this.state.token} />
       </div>
     );
   }
