@@ -1,14 +1,12 @@
 import React from "react";
 import Auth from "./auth/Auth";
-
-import ShoppingList from "./components/ShoppingList/ShoppingList";
+import ShoppingList from "./Components/ShoppingList/ShoppingList";
 import { Tabs, Row, Card, Button } from "antd";
 import "./App.css";
-import Coupons from "./components/coupons/CouponsApi/CouponsParent";
-import MyCoupons from "./components/coupons/MyCoupons/MyCoupons";
+import Coupons from "./Components/coupons/CouponsApi/CouponsParent";
+import MyCoupons from "./Components/coupons/MyCoupons/MyCoupons";
 import { PaperClipOutlined, BarcodeOutlined } from "@ant-design/icons";
-import FavoriteStore from "./components/FavoviteStore/FavoriteStore";
-
+import FavoriteStore from "./Components/FavoviteStore/FavoriteStore";
 
 export interface AppProps {}
 
@@ -90,5 +88,23 @@ class App extends React.Component<AppProps, AppState> {
     );
   }
 }
+
+/* 
+
+render() {
+  return (
+    <div>
+    <Router>
+    <Switch>
+    <ProtectedRoute path='???' component={???}/>
+    <Route component={Auth}/>
+    </Switch>
+    </Router>
+    </div>
+  )
+}
+
+
+*/
 
 export default App;
