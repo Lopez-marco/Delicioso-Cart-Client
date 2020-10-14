@@ -6,9 +6,11 @@ import Signup from "./Signup";
 
 type acceptedProps = {
   token: string;
+  favorite_store: string;
 
   updateUserRole: boolean;
   updateToken: Function;
+  store: Function;
 };
 
 type typeState = {
@@ -46,6 +48,7 @@ class Auth extends React.Component<acceptedProps, typeState> {
             <Login
               updateToken={this.props.updateToken}
               updateUserRole={this.props.updateUserRole}
+              store={this.props.store}
             />
           ) : (
             <Signup updateToken={this.props.updateToken} />

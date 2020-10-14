@@ -10,6 +10,7 @@ type valueTypes = {
 type acceptedProps = {
   updateToken: Function;
   updateUserRole: any;
+  store: Function;
 };
 
 class Login extends React.Component<acceptedProps, valueTypes> {
@@ -36,7 +37,8 @@ class Login extends React.Component<acceptedProps, valueTypes> {
       .then((response) => response.json())
       .then((data) => {
         this.props.updateToken(data.sessionToken);
-        console.log(data.sessionToken);
+        this.props.store(data.favorite_store);
+        console.log(data.favorite_store);
       });
   };
   render() {

@@ -76,7 +76,7 @@ class FavoriteStore extends React.Component<
         }
       )
         .then((res) => res.json())
-        .then((json: StoreResponce) => {
+        .then((json) => {
           console.log(json.results);
           this.setState({
             business_status: json.results[0].business_status,
