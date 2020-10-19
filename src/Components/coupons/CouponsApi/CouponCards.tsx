@@ -19,7 +19,7 @@ export interface CouponCardsProps {
   token: string;
 }
 
-export interface CouponCardsState { }
+export interface CouponCardsState {}
 
 const { Text } = Typography;
 
@@ -57,7 +57,13 @@ class CouponCards extends React.Component<CouponCardsProps, CouponCardsState> {
           <Card
             className="cardback"
             hoverable
-            style={{ width: 400, height: 170, marginTop: 16, borderRadius: 10 }}
+            style={{
+              width: 400,
+              height: 170,
+              marginTop: 16,
+              borderRadius: 10,
+              cursor: "default",
+            }}
           >
             <Row>
               <Col span={7}>
@@ -105,4 +111,3 @@ class CouponCards extends React.Component<CouponCardsProps, CouponCardsState> {
 }
 
 export default CouponCards;
-

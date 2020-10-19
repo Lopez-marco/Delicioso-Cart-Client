@@ -1,5 +1,4 @@
 import React from "react";
-import { StoreResponce } from "./StoreInterface";
 import { Card, Row, Col, Image } from "antd";
 import { GeoResponse } from "./GeolocationInterface";
 
@@ -99,59 +98,35 @@ class FavoriteStore extends React.Component<
   render() {
     return (
       <div>
-        <Row gutter={[16, 48]}>
-          <Col span={6} />
-        </Row>
-        <Row gutter={[16, 24]}>
-          <Col span={6} />
-        </Row>
-        <Row gutter={[16, 16]}>
-          <Col span={4} />
-          <Col span={8}>
-            <Card
-              className="cardback"
-              hoverable
-              size="small"
-              title="
+        <Card
+          className="cardback"
+          hoverable
+          size="small"
+          title="
           Your Nearest Favorite Store"
-              extra={<a href="#">Change Favorite store</a>}
-              style={{ width: 400, marginTop: 16, borderRadius: 10 }}
-            >
-              <Row gutter={[8, 8]}>
-                <Col span={6}>
-                  <Image width={65} height={80} src={this.state.icon} />
-                </Col>
-                <Col span={14}>
-                  <p>
-                    {this.state.name}
-                    <br />
-                    {this.state.vicinity}
-                    <br />
-                    {this.state.opening_hours === true ? "Open" : "Close"}{" "}
-                  </p>
-                </Col>
-              </Row>
-            </Card>
-          </Col>
-          {/* <Col span={12}>
-            <Card
-              hoverable
-              size="small"
-              title="Find more Grocery Stores"
-              extra={<a href="#">More</a>}
-              style={{ width: 400, marginTop: 16, borderRadius: 10 }}
-            >
-              <br />
-              <Search
-                placeholder="input search text"
-                onSearch={(value) => console.log(value)}
-                enterButton
-              />
-              <br />
-              <br />
-            </Card>
-          </Col> */}
-        </Row>
+          extra={<a href="#">Change Favorite store</a>}
+          style={{
+            width: 400,
+            marginTop: 16,
+            borderRadius: 10,
+            cursor: "default",
+          }}
+        >
+          <Row gutter={[8, 8]}>
+            <Col span={6}>
+              <Image width={65} height={80} src={this.state.icon} />
+            </Col>
+            <Col span={14}>
+              <p>
+                {this.state.name}
+                <br />
+                {this.state.vicinity}
+                <br />
+                {this.state.opening_hours === true ? "Open" : "Close"}{" "}
+              </p>
+            </Col>
+          </Row>
+        </Card>
       </div>
     );
   }

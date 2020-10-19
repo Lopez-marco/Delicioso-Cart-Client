@@ -86,7 +86,13 @@ class myCouponsCards extends React.Component<
           <Card
             className="cardback"
             hoverable
-            style={{ width: 400, height: 170, marginTop: 16, borderRadius: 10 }}
+            style={{
+              width: 400,
+              height: 170,
+              marginTop: 16,
+              borderRadius: 10,
+              cursor: "default",
+            }}
           >
             <Row>
               <Col span={7}>
@@ -111,10 +117,7 @@ class myCouponsCards extends React.Component<
                   <Text type="secondary">
                     {" "}
                     {this.props.myCouponCards.coupon.coupon.description}
-                    {this.props.myCouponCards.coupon.coupon.expiration &&
-                    this.state.Date
-                      ? "Not Expired"
-                      : "Expired"}
+                    {this.props.myCouponCards.coupon.coupon.expiration}
                   </Text>
                 </h5>
               </Col>
@@ -122,7 +125,7 @@ class myCouponsCards extends React.Component<
                 <MyCouponsModal myCouponCards={this.props.myCouponCards} />
                 <br />
                 <br />
-                <Tooltip title="Clip Coupon">
+                <Tooltip title="UnClip Coupon">
                   <Button
                     onClick={this.Delete}
                     type="primary"
