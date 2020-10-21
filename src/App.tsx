@@ -7,6 +7,7 @@ import Coupons from "./Components/coupons/CouponsApi/CouponsParent";
 import MyCoupons from "./Components/coupons/MyCoupons/MyCoupons";
 import { PaperClipOutlined, BarcodeOutlined } from "@ant-design/icons";
 import FavoriteStore from "./Components/FavoviteStore/FavoriteStore";
+import UserList from "./Components/Admin/adminindex";
 
 export interface AppProps {}
 
@@ -84,6 +85,7 @@ class App extends React.Component<AppProps, AppState> {
         />
 
         <ShoppingList token={this.state.token} />
+        <UserList token={this.state.token} />
       </div>
     );
   }
