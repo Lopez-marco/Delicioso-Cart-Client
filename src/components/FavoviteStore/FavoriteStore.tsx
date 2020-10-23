@@ -1,8 +1,11 @@
 import React from "react";
 import { Card, Row, Col, Image } from "antd";
 import { GeoResponse } from "./GeolocationInterface";
+import UpdateStoreModal from "./UpdateStoreModal";
 
-export interface FavoriteStoreProps {}
+export interface FavoriteStoreProps {
+  store: Function;
+}
 
 export interface FavoriteStoreState {
   business_status: string;
@@ -21,6 +24,7 @@ export interface FavoriteStoreState {
   //   isOpen: boolean;
   lat: number;
   lng: number;
+  favorite_store: string;
 }
 
 class FavoriteStore extends React.Component<
@@ -46,10 +50,15 @@ class FavoriteStore extends React.Component<
       //   isOpen: true,
       lat: 0,
       lng: 0,
+      favorite_store: "",
     };
   }
 
   componentDidMount() {
+    this.geolocation();
+  }
+
+  geolocation() {
     fetch(
       "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyC8SxWx5derhovl8nfdFbYxhMR5r_mH7ww",
       {
@@ -59,17 +68,24 @@ class FavoriteStore extends React.Component<
       .then((res) => res.json())
       .then((json: GeoResponse) => {
         console.log(json.location);
+        let store = localStorage.getItem("favorite_store");
+
         this.setState({
           lat: json.location.lat,
           lng: json.location.lng,
+          favorite_store: store ? store : "",
         });
       });
   }
 
   componentDidUpdate() {
+    this.favoriteStore();
+  }
+
+  favoriteStore() {
     if (this.state.lat && !this.state.icon) {
       fetch(
-        `http://localhost:3001/faboritestore/${this.state.lat}/${this.state.lng}`,
+        `http://localhost:3001/fav/${this.state.lat}/${this.state.lng}/${this.state.favorite_store}`,
         {
           method: "GET",
         }
@@ -104,15 +120,15 @@ class FavoriteStore extends React.Component<
           size="small"
           title="
           Your Nearest Favorite Store"
-          extra={<a href="#">Change Favorite store</a>}
           style={{
             width: 400,
-            marginTop: 16,
+
+            // marginBottom: 46,
             borderRadius: 10,
             cursor: "default",
           }}
         >
-          <Row gutter={[8, 8]}>
+          <Row gutter={[2, 2]}>
             <Col span={6}>
               <Image width={65} height={80} src={this.state.icon} />
             </Col>
@@ -124,6 +140,10 @@ class FavoriteStore extends React.Component<
                 <br />
                 {this.state.opening_hours === true ? "Open" : "Close"}{" "}
               </p>
+              <UpdateStoreModal
+                store={this.props.store}
+                favoritestore={this.favoriteStore}
+              />
             </Col>
           </Row>
         </Card>

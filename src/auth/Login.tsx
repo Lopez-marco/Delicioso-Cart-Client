@@ -60,6 +60,8 @@ class Login extends React.Component<acceptedProps, valueTypes> {
             name="password"
             type="password"
           />
+          <br />
+          <br />
           <Button type="primary" htmlType="submit" id="login-btn">
             Log in
           </Button>

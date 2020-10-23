@@ -1,7 +1,6 @@
 import React from "react";
 import Auth from "./auth/Auth";
 import { BrowserRouter as Router } from "react-router-dom";
-import ShoppingList from "./components/ShoppingList/ShoppingList";
 import "./App.css";
 import Index from "./components/Index";
 
@@ -39,6 +38,7 @@ class App extends React.Component<AppProps, AppState> {
         <Index
           token={this.state.token}
           favorite_store={this.state.favorite_store}
+          store={this.store}
         />
       </Router>
     ) : (
@@ -53,36 +53,7 @@ class App extends React.Component<AppProps, AppState> {
   };
 
   render() {
-    return (
-      <div>
-        {this.userLogin()}
-
-        {/* <Row gutter={[8, 48]}>
-          <Col span={6} />
-          <Col span={12} />
-        </Row>
-        <Row gutter={[16, 16]}>
-          <Col></Col>
-          <Col span={13}>
-            <Card> Logo o webpage add or video</Card>
-          </Col>
-          <Col span={10}>
-            <Card>
-              <Auth
-                token={""}
-                favorite_store={""}
-                updateUserRole={false}
-                updateToken={this.updateToken}
-                store={this.store}
-              />
-            </Card>
-            <Col span={6} />
-          </Col>
-        </Row> */}
-
-        {/* <ShoppingList token={this.state.token} /> */}
-      </div>
-    );
+    return <div>{this.userLogin()}</div>;
   }
 }
 

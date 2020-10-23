@@ -4,14 +4,16 @@ import { Result, StoreResponce } from "../StoreInterface";
 import { GeoResponse } from "../GeolocationInterface";
 import Findstorelist from "./Findstorelist";
 
-export interface FindStoreProps {}
+export interface FindStoreProps {
+  store: Function;
+}
 
 export interface FindStoreState {
   storefounder: Result[];
   lat: number;
   lng: number;
   favorite_store: string;
-  icon: string;
+  name: string;
 }
 
 class FindStore extends React.Component<FindStoreProps, FindStoreState> {
@@ -22,7 +24,7 @@ class FindStore extends React.Component<FindStoreProps, FindStoreState> {
       lat: 0,
       lng: 0,
       favorite_store: "",
-      icon: "",
+      name: "",
     };
   }
 
@@ -49,7 +51,7 @@ class FindStore extends React.Component<FindStoreProps, FindStoreState> {
 
   componentDidUpdate() {
     // console.log(this.state.favorite_store);
-    if (this.state.lat && !this.state.icon) {
+    if (this.state.lat && !this.state.name) {
       fetch(
         `http://localhost:3001/near/${this.state.lat}/${this.state.lng}/${this.state.favorite_store}`,
         {
@@ -61,7 +63,7 @@ class FindStore extends React.Component<FindStoreProps, FindStoreState> {
           console.log(json.results);
           this.setState({
             storefounder: json.results,
-            icon: json.results[0].icon,
+            name: json.results[0].name,
           });
         });
     }
@@ -70,21 +72,41 @@ class FindStore extends React.Component<FindStoreProps, FindStoreState> {
   render() {
     return (
       <div>
-        <Row gutter={[18, 16]}>
+        <br />
+        <Row gutter={[4, 6]} justify="center">
           <Col></Col>
         </Row>
+        <Row gutter={[4, 48]} justify="center">
+          <Col></Col>
+        </Row>
+
         <Row gutter={[18, 16]} justify={"center"}>
-          <Card size="small" title="Stores" style={{ width: 1250 }}>
-            <Row gutter={[18, 16]} justify="center">
-              {this.state.storefounder.length > 0 ? (
-                this.state.storefounder.map((Store: Result, index: number) => (
-                  <Findstorelist FoundStores={Store} key={index} />
-                ))
-              ) : (
-                <></>
-              )}
-            </Row>
-          </Card>
+          <Col span={4}></Col>
+          <Col span={18}>
+            <Card
+              className="cardback"
+              size="small"
+              title="Stores"
+              style={{ width: 1050, borderRadius: 10 }}
+            >
+              <Row gutter={[18, 16]} justify="center">
+                {this.state.storefounder.length > 0 ? (
+                  this.state.storefounder.map(
+                    (Store: Result, index: number) => (
+                      <Findstorelist
+                        FoundStores={Store}
+                        key={index}
+                        lat={this.state.lat}
+                        lng={this.state.lng}
+                      />
+                    )
+                  )
+                ) : (
+                  <></>
+                )}
+              </Row>
+            </Card>
+          </Col>
         </Row>
       </div>
     );

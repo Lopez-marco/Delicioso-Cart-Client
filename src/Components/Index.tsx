@@ -9,6 +9,7 @@ import ShoppingList from "./ShoppingList/ShoppingList";
 export interface IndexProps {
   token: string;
   favorite_store: string;
+  store: Function;
 }
 
 export interface IndexState {}
@@ -22,13 +23,12 @@ class Index extends React.Component<IndexProps, IndexState> {
     return (
       <div>
         <Navbar />
-
         <Switch>
           <Route exact path="/">
-            <MenuofComponents />
+            <MenuofComponents store={this.props.store} />
           </Route>
           <Route exact path="/stores">
-            <FindStore />
+            <FindStore store={this.props.store} />
           </Route>
           <Route exact path="/Coupons">
             <CouponsMainPage

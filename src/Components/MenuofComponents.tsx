@@ -1,9 +1,15 @@
 import React from "react";
-import { Row, Col, Card } from "antd";
+import { Row, Col, Card, Image } from "antd";
 import { Link } from "react-router-dom";
 import FavoriteStore from "../components/FavoviteStore/FavoriteStore";
+import Logo from "../assets/DeliciosoCartBig.png";
+import List from "../assets/test.png";
+import Shop from "../assets/shops.png";
+import Coupon from "../assets/voucher.png";
 
-export interface MenuofComponentsProps {}
+export interface MenuofComponentsProps {
+  store: Function;
+}
 
 export interface MenuofComponentsState {}
 
@@ -17,50 +23,80 @@ class MenuofComponents extends React.Component<
   }
   render() {
     return (
-      <div>
-        <Row gutter={[6, 48]} justify="center">
+      <div className="MenuofComponents">
+        <Row gutter={[4, 32]} justify="center">
           <Col></Col>
         </Row>
-        <Row gutter={[6, 48]} justify="center">
+        <Row gutter={[4, 48]} justify="center">
           <Col></Col>
         </Row>
-        <Row gutter={[6, 48]} justify="center">
-          {/* <Col></Col> */}
-        </Row>
-
-        <Row gutter={[6, 48]} justify="center">
-          <Col span={9}>
-            <FavoriteStore />
-            <Col></Col>
-          </Col>
-          <Col span={5}></Col>
+        <Row gutter={[48, 24]} justify="center">
           <Col span={4}></Col>
-        </Row>
-
-        <Row gutter={[48, 16]} justify="center">
-          <Col>
+          <Col span={8}>
+            <Image width={600} src={Logo} />
+          </Col>
+          <Col span={6}></Col>
+          <Col span={6}>
             <Link to="/stores" style={{ textDecoration: "none" }}>
               <Card
+                className="cardback"
                 hoverable
-                title="Default size card"
-                style={{ width: 300 }}
-                onClick={() => console.log("im click")}
+                style={{
+                  width: 200,
+                  height: 150,
+                  borderRadius: 10,
+                  textAlign: "center",
+                }}
               >
-                <p>Other stores button</p>
+                <p>List Of Stores</p>
+                <Image width={80} src={Shop} />
               </Card>
             </Link>
           </Col>
-          <Col>
+        </Row>
+
+        <Row gutter={[48, 24]} justify="center">
+          <Col span={6}></Col>
+          <Col span={6}></Col>
+          <Col span={6}></Col>
+          <Col span={6}>
             <Link to="/coupons" style={{ textDecoration: "none" }}>
-              <Card style={{ width: 300 }}>
-                <p>view coupons button</p>
+              <Card
+                className="cardback"
+                hoverable
+                style={{
+                  width: 200,
+                  height: 150,
+                  borderRadius: 10,
+                  textAlign: "center",
+                }}
+              >
+                <p>Manufactured Coupons</p>
+                <Image width={80} src={Coupon} />
               </Card>
             </Link>
           </Col>
-          <Col>
+        </Row>
+
+        <Row gutter={[48, 19]} justify="center">
+          <Col span={6}></Col>
+          <Col span={8}>
+            <FavoriteStore store={this.props.store} />
+          </Col>
+          <Col span={2}>
             <Link to="/shoppinglist">
-              <Card title="Default size card" style={{ width: 300 }}>
+              <Card
+                className="cardback"
+                hoverable
+                style={{
+                  width: 200,
+                  height: 150,
+                  borderRadius: 10,
+                  textAlign: "center",
+                }}
+              >
                 <p>Shopping list</p>
+                <Image width={80} src={List} />
               </Card>
             </Link>
           </Col>

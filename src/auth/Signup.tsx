@@ -86,6 +86,8 @@ class Signup extends React.Component<acceptedProps, valueTypes> {
             name="favorite_store"
             type="text"
           />
+          <br />
+          <br />
           <Button type="primary" htmlType="submit" id="register-btn">
             Register
           </Button>
