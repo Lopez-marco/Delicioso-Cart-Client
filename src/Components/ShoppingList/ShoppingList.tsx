@@ -1,15 +1,16 @@
 import React from 'react';
-import ShoppingListInterface from './ShoppingListInterface';
-import { Row, Col, List, Input } from 'antd';
+import { ListsInterface, ShoppingListArrayInterface, ShoppingListInterface } from './ShoppingListInterface';
+import { List, Input, Button } from 'antd';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import ShoppingListElement from './ShoppingListElement';
 
 export interface ShoppingListProps {
-    token: string;
+    id: number;
+    listName: string;
 }
 
 export interface ShoppingListState {
-    list: ShoppingListInterface[];
+    list: ShoppingListArrayInterface;
     item: string;
     quantity: number;
     category: string;
@@ -32,16 +33,17 @@ class ShoppingList extends React.Component<ShoppingListProps, ShoppingListState>
         this.addItemQuick = this.addItemQuick.bind(this);
         this.addItemLong = this.addItemLong.bind(this);
         this.updateItemOrder = this.updateItemOrder.bind(this);
+        // this.deleteChecked = this.deleteChecked.bind(this);
         this.createDraggableItem = this.createDraggableItem.bind(this);
     }
 
     componentDidMount() {
-        this.fetchList();
+        this.fetchList(this.props.id);
     }
 
-    //get all
-    fetchList() {
-        fetch(`http://localhost:3001/shopping-list/`, {
+    //get list
+    fetchList(id: number) {
+        fetch(`http://localhost:3001/shopping-list/list/${id}`, {
             method: 'GET',
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -49,18 +51,20 @@ class ShoppingList extends React.Component<ShoppingListProps, ShoppingListState>
             })
         })
             .then(res => res.json())
-            .then((list: ShoppingListInterface[]) => {
-                console.log(list);
+            .then((list: ListsInterface) => {
+                console.log("LIST", list.items);
                 this.setState({
-                    list: list,
+                    list: list.items!,
                 })
             })
     }
+
     // add item quick way
     addItemQuick() {
-        fetch(`http://localhost:3001/shopping-list/add-quick`, {
+        fetch(`http://localhost:3001/items/add-quick`, {
             method: 'POST',
             body: JSON.stringify({
+                shoppingListId: this.props.id,
                 item_name: this.state.item
             }),
             headers: new Headers({
@@ -71,19 +75,19 @@ class ShoppingList extends React.Component<ShoppingListProps, ShoppingListState>
             .then(res => res.json())
             .then((res: number) => {
                 console.log(res);
-                this.addItemIput.current?.setValue(''); 
-                this.fetchList();
+                this.addItemIput.current?.setValue('');
+                this.fetchList(this.props.id);
             })
     }
 
     // add item long way
     addItemLong() {
-        fetch(`http://localhost:3001/shopping-list/add-long`, {
+        fetch(`http://localhost:3001/items/add-long`, {
             method: 'POST',
             body: JSON.stringify({
+                shoppingListId: this.props.id,
                 item_name: this.state.item,
                 quantity: this.state.quantity,
-                cetegory: this.state.category
             }),
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -93,13 +97,13 @@ class ShoppingList extends React.Component<ShoppingListProps, ShoppingListState>
             .then(res => res.json())
             .then((res: number) => {
                 console.log(res);
-                this.fetchList();
+                this.fetchList(this.props.id);
             })
     }
 
     // update item order
     updateItemOrder(item: ShoppingListInterface, order: number) {
-        fetch(`http://localhost:3001/shopping-list/update-item/${item.id}`, {
+        fetch(`http://localhost:3001/items/update-item/${item.id}`, {
             method: 'PUT',
             body: JSON.stringify({
                 order: order
@@ -114,7 +118,19 @@ class ShoppingList extends React.Component<ShoppingListProps, ShoppingListState>
                 console.log(res);
             })
     }
+    // // delete all checked items from list
+    // deleteChecked() {
+    //     for (let item of this.state.list) {
+    //         fetch(`http://localhost:3001/items/delete/${item.id}`, {
+    //             method: 'DELETE',
+    //             headers: new Headers({
+    //                 'Content-Type': 'application/json',
+    //                 'Authorization': `${localStorage.getItem('token')}`
+    //             })
+    //         })
+    //     }
 
+    // }
 
     //for React DnD
     onDragEnd = (result: any) => {
@@ -132,7 +148,7 @@ class ShoppingList extends React.Component<ShoppingListProps, ShoppingListState>
         items.splice(source.index, 1);
         items.splice(destination.index, 0, droppedItem);
 
-        items.forEach((item: ShoppingListInterface, index: number):void => {
+        items.forEach((item: ShoppingListInterface, index: number): void => {
             item.order = index;
             this.updateItemOrder(item, index);
         })
@@ -140,53 +156,54 @@ class ShoppingList extends React.Component<ShoppingListProps, ShoppingListState>
         this.setState({ list: items });
     }
 
-//creates React Dnd list
-createDraggableItem(item: ShoppingListInterface, index: number) {
-    return (
-        <Draggable
-            key={index}
-            draggableId={index + ''}
-            index={index}
-        >
-            {(provided) => (
-                <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                    <ShoppingListElement  fetchList={this.fetchList} item={item} index={index} />
-                </div>
-            )}
-        </Draggable>
-    )
-}
+    //creates React Dnd list
+    createDraggableItem(item: ShoppingListInterface, index: number) {
+        return (
+            <Draggable
+                key={index}
+                draggableId={index + ''}
+                index={index}
+            >
+                {(provided) => (
+                    <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                        <ShoppingListElement fetchList={this.fetchList} item={item} index={index} />
+                    </div>
+                )}
+            </Draggable>
+        )
+    }
 
 
-render() {
+    render() {
 
-    return (
-        <>
-            <Row style={{ margin: '2em' }}>
-                <Col span={12} offset={6}>
-                    <List bordered>
-                        <List.Item className='list-item' > Shopping List </List.Item>
-                        {this.state.list.length > 0 ?
-                            <DragDropContext onDragEnd={this.onDragEnd}>
-                                <Droppable droppableId='shoppingListDnD'>
-                                    {(provided) => (
-                                        <div ref={provided.innerRef} {...provided.droppableProps}>
-                                            {this.state.list.map((item, index) => this.createDraggableItem(item, index))}
-                                            {provided.placeholder}
-                                        </div>)}
-                                </Droppable>
-                            </DragDropContext>
-                            : null
-                        }
-                        <List.Item className='list-item' style={{ borderTop: '1px solid lightslategray' }}>
-                            <Input className='borderless' ref={this.addItemIput} onPressEnter={(e => { this.addItemQuick();})} onChange={(e => this.setState({ item: e.target.value }))} placeholder='Add item...' />
+        return (
+            <div id='single-shopping-list'>
+                <List bordered>
+                    <div id='shopping-list-header'>
+                        <List.Item className='shopping-list list-item'>
+                            <h3 style={{ marginRight: '20em' }}>Shopping List - {this.props.listName}</h3>
+                            {/* <Button style={{ marginLeft: '5em' }} onClick={this.deleteChecked}>Delete Checked Items</Button> */}
                         </List.Item>
-                    </List>
-                </Col>
-            </Row>
-        </>
-    );
-}
+                    </div>
+                    {this.state.list.length > 0 ?
+                        <DragDropContext onDragEnd={this.onDragEnd}>
+                            <Droppable droppableId='shoppingListDnD'>
+                                {(provided) => (
+                                    <div ref={provided.innerRef} {...provided.droppableProps}>
+                                        {this.state.list.map((item, index) => this.createDraggableItem(item, index))}
+                                        {provided.placeholder}
+                                    </div>)}
+                            </Droppable>
+                        </DragDropContext>
+                        : null
+                    }
+                    <List.Item className='list-item' style={{ borderTop: '1px solid lightslategray' }}>
+                        <Input className='borderless' ref={this.addItemIput} onPressEnter={(e => { this.addItemQuick(); })} onChange={(e => this.setState({ item: e.target.value }))} placeholder='Add item...' />
+                    </List.Item>
+                </List>
+            </div>
+        );
+    }
 }
 
 export default ShoppingList;

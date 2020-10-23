@@ -8,6 +8,7 @@ import Coupons from "./components/coupons/CouponsApi/CouponsParent";
 import MyCoupons from "./components/coupons/MyCoupons/MyCoupons";
 import { PaperClipOutlined, BarcodeOutlined } from "@ant-design/icons";
 import FavoriteStore from "./components/FavoviteStore/FavoriteStore";
+import ShoppingLists from "./components/ShoppingList/ShoppingLists";
 
 
 export interface AppProps {}
@@ -35,8 +36,8 @@ class App extends React.Component<AppProps, AppState> {
       <div>
         {/* <Navbar /> */}
         {/* <Geolocation url={this.GeoURL} /> */}
-        <FavoriteStore />
-        <Row gutter={[18, 16]} justify="center">
+        {/* <FavoriteStore /> */}
+        {/* <Row gutter={[18, 16]} justify="center">
           <Card
             // className="cardback"
             hoverable
@@ -77,15 +78,14 @@ class App extends React.Component<AppProps, AppState> {
               </Tabs>
             </div>
           </Card>
-        </Row>
+        </Row> */}
 
+        <ShoppingLists token={this.state.token} />
         <Auth
           token={""}
           updateUserRole={false}
           updateToken={this.updateToken}
         />
-
-        <ShoppingList token={this.state.token} />
       </div>
     );
   }

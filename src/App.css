@@ -114,3 +114,26 @@ code {
   background: #141414;
 }
 
+
+/* Shopping List */
+#shopping-list-header {
+  background: rebeccapurple;
+  display: flex;
+  justify-content: space-around;
+}
+
+#shopping-list-component {
+  padding: 3em;
+  display: flex;
+
+}
+
+#manage-lists-component {
+  padding: 4em;
+  flex-grow: 1;
+}
+
+#single-shopping-list {
+  padding: 4em;
+  flex-grow: 1;
+}

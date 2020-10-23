@@ -1,6 +1,6 @@
 import React from 'react';
 import { Checkbox, List, Menu, Dropdown, Button, message, Form, Input, InputNumber } from 'antd';
-import ShoppingListInterface from './ShoppingListInterface';
+import { ShoppingListInterface } from './ShoppingListInterface';
 import { DeleteOutlined, EditOutlined, EllipsisOutlined } from '@ant-design/icons';
 import { CheckboxChangeEvent } from 'antd/lib/checkbox';
 import Modal from 'antd/lib/modal/Modal';
@@ -112,13 +112,9 @@ class ShoppingListElement extends React.Component<ShoppingListElementProps, Shop
 
 
     showModal() {
-        console.log("modal hit")
         this.setState({ modalDisplay: true });
     }
 
-    generateModal() {
-        return
-    }
     render() {
         const menu = (
             <Menu onClick={this.handleMenuClick}>
@@ -171,9 +167,6 @@ class ShoppingListElement extends React.Component<ShoppingListElementProps, Shop
                     <Form {...layout} name="myList">
                         <Form.Item name={['item']} label="Item" rules={[{ required: true }]}>
                             <Input defaultValue={this.props.item.item_name} onChange={e => this.setState({item_new: e.target.value})}/>
-                        </Form.Item>
-                        <Form.Item name={['Category']} label="Category">
-                            <Input defaultValue={this.props.item.category} onChange={e => this.setState({category_new: e.target.value})}/>
                         </Form.Item>
                         <Form.Item name={['Quantity']} label="Quantity" rules={[{ type: 'number', min: 1, max: 99 }]}>
                             <InputNumber defaultValue={this.props.item.quantity} onChange={e => this.setState({quantity_new: Number(e)})}/>
