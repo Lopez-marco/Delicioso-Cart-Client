@@ -1,0 +1,75 @@
+:root {
+  --main-color: rgba(225, 225, 225);
+  --btn-color: rgb(120, 27, 226);
+  --btn-hover: rgb(180, 140, 226);
+  --font-style: Arial;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-style);
+  line-height: 1.5;
+  background: url("./images/background.jpg");
+}
+
+.container {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.btn {
+  background-color: var(--btn-color);
+  border: none;
+  padding: 0.5rem;
+  border-radius: 5px;
+}
+
+.btn:hover {
+  background-color: var(--btn-hover);
+}
+
+/* Auth */
+#signuplogin {
+  background: var(--main-color);
+  padding: 1rem;
+  opacity: 0.8;
+}
+
+#toggle {
+  width: 100%;
+}
+
+/* .logo {
+  background-image: url("./images/Logo.png");
+} */
+
+/* Register */
+#register-btn {
+  margin-top: 10px;
+  width: 100%;
+}
+
+#signupHeading {
+  text-align: center;
+}
+
+/* Login */
+#login {
+  background: var(--main-color);
+  padding: 1rem;
+}
+
+#login-btn {
+  margin-top: 10px;
+  width: 100%;
+}
+
+#login-h1 {
+  text-align: center;
+}

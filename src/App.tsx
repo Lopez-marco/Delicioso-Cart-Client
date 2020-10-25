@@ -1,8 +1,19 @@
 import React from "react";
 import Auth from "./auth/Auth";
+
+import ShoppingList from "./Components/ShoppingList/ShoppingList";
+import { Tabs, Row, Card, Button } from "antd";
+import "./App.css";
+import Coupons from "./Components/coupons/CouponsApi/CouponsParent";
+import MyCoupons from "./Components/coupons/MyCoupons/MyCoupons";
+import { PaperClipOutlined, BarcodeOutlined } from "@ant-design/icons";
+import FavoriteStore from "./Components/FavoviteStore/FavoriteStore";
+import UserList from "./Components/Admin/adminindex";
+
 import { BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
 import Index from "./components/Index";
+
 
 export interface AppProps {}
 
@@ -40,6 +51,11 @@ class App extends React.Component<AppProps, AppState> {
           favorite_store={this.state.favorite_store}
           store={this.store}
         />
+
+
+        <ShoppingList token={this.state.token} />
+        <UserList token={this.state.token} />
+      </div>
       </Router>
     ) : (
       <Auth
@@ -49,6 +65,7 @@ class App extends React.Component<AppProps, AppState> {
         updateToken={this.updateToken}
         store={this.store}
       />
+
     );
   };
 
@@ -56,5 +73,23 @@ class App extends React.Component<AppProps, AppState> {
     return <div>{this.userLogin()}</div>;
   }
 }
+
+/* 
+
+render() {
+  return (
+    <div>
+    <Router>
+    <Switch>
+    <ProtectedRoute path='???' component={???}/>
+    <Route component={Auth}/>
+    </Switch>
+    </Router>
+    </div>
+  )
+}
+
+
+*/
 
 export default App;
