@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button, Form, Input } from "antd";
 import "./auth.css";
 
@@ -53,6 +53,7 @@ class Signup extends React.Component<acceptedProps, valueTypes> {
     return (
       <div id="signupDiv">
         <h1 id="signupHeading">Sign Up to Join the Fun</h1>
+
         <div className="container">
           <Form onFinish={this.handleSubmit} className="signupForm">
             <h2>Username</h2>
@@ -104,6 +105,47 @@ class Signup extends React.Component<acceptedProps, valueTypes> {
             </Button>
           </Form>
         </div>
+
+        <Form onFinish={this.handleSubmit} className="signupForm">
+          <h2>Username</h2>
+          <Input
+            className="signupInput"
+            onChange={(e) => this.setState({ username: e.target.value })}
+            value={this.state.username}
+            name="username"
+            type="text"
+          />
+          <h2>Email</h2>
+          <Input
+            id="signupInputEmail"
+            onChange={(e) => this.setState({ email: e.target.value })}
+            value={this.state.email}
+            name="email"
+            type="email"
+          />
+          <h2>Password</h2>
+          <Input
+            className="signupInput"
+            onChange={(e) => this.setState({ password: e.target.value })}
+            name="password"
+            value={this.state.password}
+            type="password"
+          />
+          <h2>Favorite Store</h2>
+          <Input
+            className="signupInput"
+            onChange={(e) => this.setState({ favorite_store: e.target.value })}
+            value={this.state.favorite_store}
+            name="favorite_store"
+            type="text"
+          />
+          <br />
+          <br />
+          <Button type="primary" htmlType="submit" id="register-btn">
+            Register
+          </Button>
+        </Form>
+
       </div>
     );
   }

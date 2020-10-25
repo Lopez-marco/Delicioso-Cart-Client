@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button, Form, Input } from "antd";
 import "./auth.css";
 
@@ -10,6 +10,7 @@ type valueTypes = {
 type acceptedProps = {
   updateToken: Function;
   updateUserRole: any;
+  store: Function;
 };
 
 class Login extends React.Component<acceptedProps, valueTypes> {
@@ -36,12 +37,14 @@ class Login extends React.Component<acceptedProps, valueTypes> {
       .then((response) => response.json())
       .then((data) => {
         this.props.updateToken(data.sessionToken);
-        console.log(data.sessionToken);
+        this.props.store(data.favorite_store);
+        console.log(data.favorite_store);
       });
   };
   render() {
     return (
       <div id="login">
+
         <h1 id="login-h1">Login</h1>
         <div className="container">
           <Form onFinish={this.handleSubmit} className="loginForm">
@@ -72,6 +75,30 @@ class Login extends React.Component<acceptedProps, valueTypes> {
             </Button>
           </Form>
         </div>
+
+        <h1>Login</h1>
+        <Form onFinish={this.handleSubmit} className="loginForm">
+          <h2>Email</h2>
+          <Input
+            id="loginInput"
+            onChange={(e) => this.setState({ email: e.target.value })}
+            name="email"
+            type="email"
+          />
+          <h2>Password</h2>
+          <Input
+            id="loginInput"
+            onChange={(e) => this.setState({ password: e.target.value })}
+            name="password"
+            type="password"
+          />
+          <br />
+          <br />
+          <Button type="primary" htmlType="submit" id="login-btn">
+            Log in
+          </Button>
+        </Form>
+
       </div>
     );
   }
