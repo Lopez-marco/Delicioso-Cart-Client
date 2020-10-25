@@ -7,7 +7,6 @@ import { BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
 import Index from "./components/Index";
 
-
 export interface AppProps {}
 
 export interface AppState {
@@ -54,7 +53,6 @@ class App extends React.Component<AppProps, AppState> {
         updateToken={this.updateToken}
         store={this.store}
       />
-
     );
   };
 

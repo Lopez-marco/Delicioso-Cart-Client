@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Typography, Button, Card, Tooltip, message } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+
 export interface UserListProps {
   token: string;
 }
@@ -33,7 +34,7 @@ class UserList extends React.Component<UserListProps, UserListState> {
 
   //get all users
   fetchList() {
-    fetch(`http://localhost:3001/user/view-all`, {
+    fetch("http://localhost:3001/user/view-all", {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
