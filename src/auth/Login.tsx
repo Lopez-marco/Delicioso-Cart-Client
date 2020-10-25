@@ -44,7 +44,6 @@ class Login extends React.Component<acceptedProps, valueTypes> {
   render() {
     return (
       <div id="login">
-
         <h1 id="login-h1">Login</h1>
         <div className="container">
           <Form onFinish={this.handleSubmit} className="loginForm">
@@ -75,7 +74,6 @@ class Login extends React.Component<acceptedProps, valueTypes> {
             </Button>
           </Form>
         </div>
-
       </div>
     );
   }

@@ -105,7 +105,6 @@ class Signup extends React.Component<acceptedProps, valueTypes> {
             </Button>
           </Form>
         </div>
-
       </div>
     );
   }
