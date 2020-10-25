@@ -1,26 +1,60 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Auth from "./auth/Auth";
+import { BrowserRouter as Router } from "react-router-dom";
+import "./App.css";
+import Index from "./components/Index";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export interface AppProps {}
+
+export interface AppState {
+  token: string;
+  favorite_store: string;
+}
+
+class App extends React.Component<AppProps, AppState> {
+  constructor(props: AppProps) {
+    super(props);
+    this.state = { token: "", favorite_store: "" };
+  }
+
+  updateToken = (token: string) => {
+    if (localStorage.getItem("token")) {
+      this.setState({ token: token });
+    }
+    localStorage.setItem("token", token);
+    this.setState({ token: token });
+  };
+  store = (favorite_store: string) => {
+    if (localStorage.getItem("favorite_store")) {
+      this.setState({ favorite_store: favorite_store });
+    }
+    localStorage.setItem("favorite_store", favorite_store);
+    this.setState({ favorite_store: favorite_store });
+  };
+  ///If user has a token shows Index. NO token shows Login logout
+  userLogin = () => {
+    return localStorage.getItem("token") ? (
+      <Router>
+        <Index
+          token={this.state.token}
+          favorite_store={this.state.favorite_store}
+          store={this.store}
+        />
+      </Router>
+    ) : (
+      <Auth
+        token={""}
+        favorite_store={""}
+        updateUserRole={false}
+        updateToken={this.updateToken}
+        store={this.store}
+      />
+    );
+  };
+
+  render() {
+    return <div>{this.userLogin()}</div>;
+  }
 }
 
 export default App;
