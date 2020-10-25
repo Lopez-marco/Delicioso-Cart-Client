@@ -1,11 +1,10 @@
 import React from 'react';
 import { ListsInterface } from './ShoppingListInterface';
-import { Menu, Button, Modal, Form, Input, message, Dropdown, List } from 'antd';
+import { Menu, Button, Modal, Form, Input } from 'antd';
 import {
     MenuUnfoldOutlined, MenuFoldOutlined, CheckSquareOutlined, PlusCircleOutlined,
-    SettingOutlined, EditOutlined, DeleteOutlined, EllipsisOutlined
+    SettingOutlined
 } from '@ant-design/icons';
-import ManageListElement from './ManageListsElement';
 import ManageLists from './ManageLists';
 import ShoppingList from './ShoppingList';
 
@@ -39,8 +38,8 @@ class ShoppingLists extends React.Component<ShoppingListsProps, ShoppingListsSta
             editListDisplayModal: false,
             deleteListDisplayModal: false,
             displayManageLists: false,
-            displayShoppingList: true,
-            shoppingListToDisplay: 2,
+            displayShoppingList: false,
+            shoppingListToDisplay: 0,
             shoppingListNameToDisplay: ''
         };
         this.fetchLists = this.fetchLists.bind(this);
@@ -67,7 +66,6 @@ class ShoppingLists extends React.Component<ShoppingListsProps, ShoppingListsSta
         })
             .then(res => res.json())
             .then((lists: ListsInterface[]) => {
-                console.log(lists);
                 this.setState({
                     lists: lists,
                 })
@@ -75,10 +73,11 @@ class ShoppingLists extends React.Component<ShoppingListsProps, ShoppingListsSta
     }
 
     handleShoppingListClick = (list: ListsInterface) => {
-        this.setState({ displayManageLists: false});
-        this.setState({ shoppingListToDisplay: list.id})
-        this.setState({ shoppingListNameToDisplay: list.name})
-        this.setState({ displayShoppingList: true});
+        this.setState({ displayManageLists: false });
+        this.setState({ shoppingListToDisplay: list.id })
+        this.setState({ shoppingListNameToDisplay: list.name })
+        this.setState({ displayShoppingList: true });
+        console.log(this.state.shoppingListToDisplay, this.state.shoppingListNameToDisplay);
     }
 
     handleDisplayManage = () => {
@@ -141,12 +140,12 @@ class ShoppingLists extends React.Component<ShoppingListsProps, ShoppingListsSta
                             <Menu.Item key={list.id} icon={<CheckSquareOutlined />} onClick={e => this.handleShoppingListClick(list)}>
                                 {list.name}
                             </Menu.Item>)}
-                            <Menu.Divider />
-                            <Menu.Item key='998' icon={<PlusCircleOutlined />} onClick={this.addListModal}>
-                                Add List
+                        <Menu.Divider />
+                        <Menu.Item key='998' icon={<PlusCircleOutlined />} onClick={this.addListModal}>
+                            Add List
                             </Menu.Item>
-                            <Menu.Item key='999' icon={<SettingOutlined />} onClick={this.handleDisplayManage}>
-                                Manage Lists
+                        <Menu.Item key='999' icon={<SettingOutlined />} onClick={this.handleDisplayManage}>
+                            Manage Lists
                             </Menu.Item>
                     </Menu>
 
@@ -165,7 +164,11 @@ class ShoppingLists extends React.Component<ShoppingListsProps, ShoppingListsSta
                     </Modal>
 
                 </div>
-                {this.state.displayManageLists ? <ManageLists lists={this.state.lists} fetchLists={this.fetchLists} /> : this.state.displayShoppingList ? <ShoppingList id={ this.state.shoppingListToDisplay } listName={this.state.shoppingListNameToDisplay}/> : null}
+                {this.state.displayManageLists ? <ManageLists lists={this.state.lists} fetchLists={this.fetchLists} /> : this.state.displayShoppingList ? <ShoppingList id={this.state.shoppingListToDisplay} listName={this.state.shoppingListNameToDisplay} /> :
+                    <div id='shopping-list-component-select'>
+                        <h3 style={{ flexGrow: 1 }}>Select an list from the menu</h3>
+                    </div>
+                }
             </div>
         );
     }

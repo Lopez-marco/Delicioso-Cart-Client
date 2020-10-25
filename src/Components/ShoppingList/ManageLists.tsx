@@ -1,6 +1,6 @@
 import React from 'react';
 import { ListsInterface } from './ShoppingListInterface';
-import {  Button, Modal, Form, Input, List } from 'antd';
+import { List } from 'antd';
 import ManageListElement from './ManageListsElement';
 
 export interface ManageListsProps {

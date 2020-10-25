@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ListsInterface } from './ShoppingListInterface';
-import { Menu, Button, Modal, Form, Input, message, Dropdown, List } from 'antd';
+import { Menu, Button, Modal, Form, Input, Dropdown, List } from 'antd';
 import { DeleteOutlined, EditOutlined, EllipsisOutlined } from '@ant-design/icons';
 
 

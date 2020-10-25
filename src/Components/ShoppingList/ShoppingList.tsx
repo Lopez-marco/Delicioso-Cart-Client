@@ -15,6 +15,7 @@ export interface ShoppingListState {
     quantity: number;
     category: string;
     bought: boolean;
+    prevPropId: number;
 }
 
 class ShoppingList extends React.Component<ShoppingListProps, ShoppingListState> {
@@ -26,19 +27,26 @@ class ShoppingList extends React.Component<ShoppingListProps, ShoppingListState>
             item: '',
             quantity: 0,
             category: '',
-            bought: false
+            bought: false,
+            prevPropId: 0
         };
         this.addItemIput = React.createRef();
         this.fetchList = this.fetchList.bind(this);
         this.addItemQuick = this.addItemQuick.bind(this);
         this.addItemLong = this.addItemLong.bind(this);
         this.updateItemOrder = this.updateItemOrder.bind(this);
-        // this.deleteChecked = this.deleteChecked.bind(this);
+        this.deleteChecked = this.deleteChecked.bind(this);
         this.createDraggableItem = this.createDraggableItem.bind(this);
     }
 
     componentDidMount() {
         this.fetchList(this.props.id);
+    }
+
+    componentDidUpdate() {
+        if (this.props.id !== this.state.prevPropId) {
+            this.fetchList(this.props.id);
+        }
     }
 
     //get list
@@ -55,6 +63,7 @@ class ShoppingList extends React.Component<ShoppingListProps, ShoppingListState>
                 console.log("LIST", list.items);
                 this.setState({
                     list: list.items!,
+                    prevPropId: this.props.id
                 })
             })
     }
@@ -118,19 +127,30 @@ class ShoppingList extends React.Component<ShoppingListProps, ShoppingListState>
                 console.log(res);
             })
     }
-    // // delete all checked items from list
-    // deleteChecked() {
-    //     for (let item of this.state.list) {
-    //         fetch(`http://localhost:3001/items/delete/${item.id}`, {
-    //             method: 'DELETE',
-    //             headers: new Headers({
-    //                 'Content-Type': 'application/json',
-    //                 'Authorization': `${localStorage.getItem('token')}`
-    //             })
-    //         })
-    //     }
 
-    // }
+    // delete all checked items from list
+    deleteChecked() {
+        let checked = [];
+        for (let item of this.state.list) {
+            if (item.bought) {
+                checked.push(item.id);
+            }
+        }
+        fetch(`http://localhost:3001/shopping-list/delete-checked/`, {
+            method: 'DELETE',
+            body: JSON.stringify({
+                checked: checked
+            }),
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Authorization': `${localStorage.getItem('token')}`
+            })
+        }).then(res => res.json())
+        .then(res => {
+            this.fetchList(this.props.id);
+        })
+
+    }
 
     //for React DnD
     onDragEnd = (result: any) => {
@@ -166,7 +186,7 @@ class ShoppingList extends React.Component<ShoppingListProps, ShoppingListState>
             >
                 {(provided) => (
                     <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                        <ShoppingListElement fetchList={this.fetchList} item={item} index={index} />
+                        <ShoppingListElement fetchList={this.fetchList} item={item} index={index} id={this.props.id} />
                     </div>
                 )}
             </Draggable>
@@ -178,11 +198,11 @@ class ShoppingList extends React.Component<ShoppingListProps, ShoppingListState>
 
         return (
             <div id='single-shopping-list'>
-                <List bordered>
+                <List bordered style={{ background: 'white' }}>
                     <div id='shopping-list-header'>
                         <List.Item className='shopping-list list-item'>
-                            <h3 style={{ marginRight: '20em' }}>Shopping List - {this.props.listName}</h3>
-                            {/* <Button style={{ marginLeft: '5em' }} onClick={this.deleteChecked}>Delete Checked Items</Button> */}
+                            <h3 style={{ marginRight: '20em' }}>ShoppingList - {this.props.listName}</h3>
+                            <Button style={{ marginLeft: '5em' }} onClick={this.deleteChecked}>Delete Checked Items</Button>
                         </List.Item>
                     </div>
                     {this.state.list.length > 0 ?

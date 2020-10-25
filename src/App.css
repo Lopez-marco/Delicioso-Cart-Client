@@ -116,17 +116,27 @@ code {
 
 
 /* Shopping List */
-#shopping-list-header {
-  background: rebeccapurple;
-  display: flex;
-  justify-content: space-around;
-}
-
 #shopping-list-component {
+  margin-right: 20%;
+  margin-left: 20%;
   padding: 3em;
   display: flex;
 
 }
+#shopping-list-component-select {
+  margin: 6em;
+  padding: 3em;
+  display: flex;
+
+}
+
+
+#shopping-list-header {
+  background: rgb(218, 113, 15);
+  display: flex;
+  justify-content: space-around;
+}
+
 
 #manage-lists-component {
   padding: 4em;

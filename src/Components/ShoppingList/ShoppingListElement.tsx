@@ -9,11 +9,11 @@ export interface ShoppingListElementProps {
     item: ShoppingListInterface;
     fetchList: Function;
     index: number;
+    id: number;
 }
 export interface ShoppingListElementState {
     item_new: string;
     quantity_new: number;
-    category_new: string;
     bought_new: boolean;
     modalDisplay: boolean;
 }
@@ -24,9 +24,8 @@ class ShoppingListElement extends React.Component<ShoppingListElementProps, Shop
         this.state = {
             item_new: '',
             quantity_new: 0,
-            category_new: '',
             bought_new: false,
-            modalDisplay: false
+            modalDisplay: false,
         };
         this.onChange = this.onChange.bind(this);
         this.handleMenuClick = this.handleMenuClick.bind(this);
@@ -41,7 +40,6 @@ class ShoppingListElement extends React.Component<ShoppingListElementProps, Shop
     }
 
     handleMenuClick(e: any) {
-        message.info('Click on menu item.');
     }
     handleOk = () => {
         this.editItem();
@@ -55,12 +53,11 @@ class ShoppingListElement extends React.Component<ShoppingListElementProps, Shop
     // edit item
     editItem() {
         console.log('from edit fetch')
-        fetch(`http://localhost:3001/shopping-list/edit/${this.props.item.id}`, {
+        fetch(`http://localhost:3001/items/edit/${this.props.item.id}`, {
             method: 'PUT',
             body: JSON.stringify({
                 item_name: this.state.item_new,
                 quantity: this.state.quantity_new,
-                category: this.state.category_new
             }),
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -69,14 +66,13 @@ class ShoppingListElement extends React.Component<ShoppingListElementProps, Shop
         })
             .then(res => res.json())
             .then((res: number) => {
-                console.log(this.state.category_new)
                 this.setState({ modalDisplay: false });
-                this.props.fetchList();
+                this.props.fetchList(this.props.id);
             })
     }
     // edit item
     checkItem(e: CheckboxChangeEvent) {
-        fetch(`http://localhost:3001/shopping-list/update-item/${this.props.item.id}`, {
+        fetch(`http://localhost:3001/items/update-item/${this.props.item.id}`, {
             method: 'PUT',
             body: JSON.stringify({
                 bought: e.target.checked
@@ -89,13 +85,13 @@ class ShoppingListElement extends React.Component<ShoppingListElementProps, Shop
             .then(res => res.json())
             .then((res: number) => {
                 console.log(res);
-                this.props.fetchList();
+                this.props.fetchList(this.props.id);
             })
     }
 
     // delete item
     deleteItem() {
-        fetch(`http://localhost:3001/shopping-list/delete/${this.props.item.id}`, {
+        fetch(`http://localhost:3001/items/delete/${this.props.item.id}`, {
             method: 'DELETE',
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -105,7 +101,7 @@ class ShoppingListElement extends React.Component<ShoppingListElementProps, Shop
             .then(res => res.json())
             .then((res: number) => {
                 console.log(res);
-                this.props.fetchList();
+                this.props.fetchList(this.props.id);
                 message.info('Item Deleted.');
             })
     }
