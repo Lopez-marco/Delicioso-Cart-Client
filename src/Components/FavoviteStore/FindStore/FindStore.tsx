@@ -1,93 +1,114 @@
 import React from "react";
-import { Card, Row, Col, Image, Input } from "antd";
-import { StoreResponce } from "../StoreInterface";
+import { Card, Row, Col } from "antd";
+import { Result, StoreResponce } from "../StoreInterface";
+import { GeoResponse } from "../GeolocationInterface";
+import Findstorelist from "./Findstorelist";
+import Menubar from "../../MainPage/Menubar";
 
-const { Search } = Input;
-
-export interface FindStoreProps {}
+export interface FindStoreProps {
+  store: Function;
+}
 
 export interface FindStoreState {
-  business_status: string;
-  icon: string;
+  storefounder: Result[];
+  lat: number;
+  lng: number;
+  favorite_store: string;
   name: string;
-  opening_hours: boolean;
-  photos: string;
-  place_id: string;
-  price_level: number;
-  rating: number;
-  reference: string;
-  scope: string;
-  types: string[];
-  user_ratings_total: number;
-  vicinity: string;
-  //   isOpen: boolean;
 }
 
 class FindStore extends React.Component<FindStoreProps, FindStoreState> {
   constructor(props: FindStoreProps) {
     super(props);
     this.state = {
-      business_status: "",
-      icon: "",
+      storefounder: [],
+      lat: 0,
+      lng: 0,
+      favorite_store: "",
       name: "",
-      opening_hours: true,
-      photos: "",
-      place_id: "",
-      price_level: 0,
-      rating: 0,
-      reference: "",
-      scope: "",
-      types: [],
-      user_ratings_total: 0,
-      vicinity: "",
-      //   isOpen: true,
     };
   }
-  // componentDidMount() {
-  //   fetch(this.props.url, {
-  //     method: "GET",
-  //   })
-  //     .then((res) => res.json())
-  //     .then((json: StoreResponce) => {
-  //       console.log(json.results);
-  //       this.setState({
-  //         business_status: json.results[0].business_status,
-  //         icon: json.results[0].icon,
-  //         name: json.results[0].name,
-  //         opening_hours: json.results[0].opening_hours.open_now,
-  //         //   photos: json.results[0].photos,
-  //         place_id: json.results[0].place_id,
-  //         price_level: json.results[0].price_level,
-  //         rating: json.results[0].rating,
-  //         reference: json.results[0].reference,
-  //         scope: json.results[0].scope,
-  //         types: json.results[0].types,
-  //         user_ratings_total: json.results[0].user_ratings_total,
-  //         vicinity: json.results[0].vicinity,
-  //       });
-  //     });
-  // }
+
+  componentDidMount() {
+    fetch(
+      "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyC8SxWx5derhovl8nfdFbYxhMR5r_mH7ww",
+      {
+        method: "POST",
+      }
+    )
+      .then((res) => res.json())
+      .then((json: GeoResponse) => {
+        console.log(json.location);
+        this.setState({
+          lat: json.location.lat,
+          lng: json.location.lng,
+        });
+        let store = localStorage.getItem("favorite_store");
+        this.setState({
+          favorite_store: store ? store : "",
+        });
+      });
+  }
+
+  componentDidUpdate() {
+    // console.log(this.state.favorite_store);
+    if (this.state.lat && !this.state.name) {
+      fetch(
+        `http://localhost:3001/near/${this.state.lat}/${this.state.lng}/${this.state.favorite_store}`,
+        {
+          method: "GET",
+        }
+      )
+        .then((res) => res.json())
+        .then((json: StoreResponce) => {
+          console.log(json.results);
+          this.setState({
+            storefounder: json.results,
+            name: json.results[0].name,
+          });
+        });
+    }
+  }
 
   render() {
     return (
       <div>
-        <Row>
-          <Col span={12}>
+        <br />
+        <Row gutter={[4, 6]} justify="center">
+          <Col></Col>
+        </Row>
+        <Row gutter={[4, 48]} justify="center">
+          <Col></Col>
+        </Row>
+
+        <Row gutter={[6, 16]} justify={"center"}>
+          <Col span={4}>
+            <Menubar />{" "}
+          </Col>
+          <Col span={1}></Col>
+          <Col span={18}>
             <Card
-              hoverable
+              className="cardback"
               size="small"
-              title="Find more Grocery Stores"
-              extra={<a href="#">More</a>}
-              style={{ width: 400, marginTop: 16, borderRadius: 10 }}
+              title="Stores"
+              style={{ width: 1000, borderRadius: 10 }}
             >
-              <br />
-              <Search
-                placeholder="input search text"
-                onSearch={(value) => console.log(value)}
-                enterButton
-              />
-              <br />
-              <br />
+              <Row gutter={[18, 16]} justify="center">
+                {this.state.storefounder.length > 0 ? (
+                  this.state.storefounder.map(
+                    (Store: Result, index: number) => (
+                      <Findstorelist
+                        FoundStores={Store}
+                        key={index}
+                        lat={this.state.lat}
+                        lng={this.state.lng}
+                      />
+                    )
+                  )
+                ) : (
+                  <></>
+                )}
+              </Row>
             </Card>
           </Col>
         </Row>

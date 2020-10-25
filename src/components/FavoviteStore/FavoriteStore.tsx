@@ -1,9 +1,11 @@
 import React from "react";
-import { StoreResponce } from "./StoreInterface";
 import { Card, Row, Col, Image } from "antd";
 import { GeoResponse } from "./GeolocationInterface";
+import UpdateStoreModal from "./UpdateStoreModal";
 
-export interface FavoriteStoreProps {}
+export interface FavoriteStoreProps {
+  store: Function;
+}
 
 export interface FavoriteStoreState {
   business_status: string;
@@ -22,6 +24,7 @@ export interface FavoriteStoreState {
   //   isOpen: boolean;
   lat: number;
   lng: number;
+  favorite_store: string;
 }
 
 class FavoriteStore extends React.Component<
@@ -47,10 +50,15 @@ class FavoriteStore extends React.Component<
       //   isOpen: true,
       lat: 0,
       lng: 0,
+      favorite_store: "",
     };
   }
 
   componentDidMount() {
+    this.geolocation();
+  }
+
+  geolocation() {
     fetch(
       "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyC8SxWx5derhovl8nfdFbYxhMR5r_mH7ww",
       {
@@ -60,23 +68,30 @@ class FavoriteStore extends React.Component<
       .then((res) => res.json())
       .then((json: GeoResponse) => {
         console.log(json.location);
+        let store = localStorage.getItem("favorite_store");
+
         this.setState({
           lat: json.location.lat,
           lng: json.location.lng,
+          favorite_store: store ? store : "",
         });
       });
   }
 
   componentDidUpdate() {
+    this.favoriteStore();
+  }
+
+  favoriteStore() {
     if (this.state.lat && !this.state.icon) {
       fetch(
-        `http://localhost:3001/faboritestore/${this.state.lat}/${this.state.lng}`,
+        `http://localhost:3001/fav/${this.state.lat}/${this.state.lng}/${this.state.favorite_store}`,
         {
           method: "GET",
         }
       )
         .then((res) => res.json())
-        .then((json: StoreResponce) => {
+        .then((json) => {
           console.log(json.results);
           this.setState({
             business_status: json.results[0].business_status,
@@ -99,59 +114,39 @@ class FavoriteStore extends React.Component<
   render() {
     return (
       <div>
-        <Row gutter={[16, 48]}>
-          <Col span={6} />
-        </Row>
-        <Row gutter={[16, 24]}>
-          <Col span={6} />
-        </Row>
-        <Row gutter={[16, 16]}>
-          <Col span={4} />
-          <Col span={8}>
-            <Card
-              className="cardback"
-              hoverable
-              size="small"
-              title="
+        <Card
+          className="cardback"
+          hoverable
+          size="small"
+          title="
           Your Nearest Favorite Store"
-              extra={<a href="#">Change Favorite store</a>}
-              style={{ width: 400, marginTop: 16, borderRadius: 10 }}
-            >
-              <Row gutter={[8, 8]}>
-                <Col span={6}>
-                  <Image width={65} height={80} src={this.state.icon} />
-                </Col>
-                <Col span={14}>
-                  <p>
-                    {this.state.name}
-                    <br />
-                    {this.state.vicinity}
-                    <br />
-                    {this.state.opening_hours === true ? "Open" : "Close"}{" "}
-                  </p>
-                </Col>
-              </Row>
-            </Card>
-          </Col>
-          {/* <Col span={12}>
-            <Card
-              hoverable
-              size="small"
-              title="Find more Grocery Stores"
-              extra={<a href="#">More</a>}
-              style={{ width: 400, marginTop: 16, borderRadius: 10 }}
-            >
-              <br />
-              <Search
-                placeholder="input search text"
-                onSearch={(value) => console.log(value)}
-                enterButton
+          style={{
+            width: 400,
+
+            // marginBottom: 46,
+            borderRadius: 10,
+            cursor: "default",
+          }}
+        >
+          <Row gutter={[2, 2]}>
+            <Col span={6}>
+              <Image width={65} height={80} src={this.state.icon} />
+            </Col>
+            <Col span={14}>
+              <p>
+                {this.state.name}
+                <br />
+                {this.state.vicinity}
+                <br />
+                {this.state.opening_hours === true ? "Open" : "Close"}{" "}
+              </p>
+              <UpdateStoreModal
+                store={this.props.store}
+                favoritestore={this.favoriteStore}
               />
-              <br />
-              <br />
-            </Card>
-          </Col> */}
-        </Row>
+            </Col>
+          </Row>
+        </Card>
       </div>
     );
   }

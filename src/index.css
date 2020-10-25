@@ -6,9 +6,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100%;
-  background: linear-gradient(#868685, #ACE0F9);
-  background-repeat: no-repeat;
-  background-attachment: fixed;
 
 }
 
@@ -17,13 +14,6 @@ code {
     monospace;
 }
 
-.logo {
-  width: 120px;
-  height: 31px;
-  background: rgba(255, 255, 255, 0.2);
-  margin: 16px 24px 16px 0;
-  float: left;
-}
 
 .cardback {
   background: linear-gradient(#FDFBFB, #EBEDEE);
