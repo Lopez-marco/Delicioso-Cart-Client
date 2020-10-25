@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button, Form, Input } from "antd";
 import "../App.css";
 
@@ -10,6 +10,7 @@ type valueTypes = {
 type acceptedProps = {
   updateToken: Function;
   updateUserRole: any;
+  store: Function;
 };
 
 class Login extends React.Component<acceptedProps, valueTypes> {
@@ -36,7 +37,8 @@ class Login extends React.Component<acceptedProps, valueTypes> {
       .then((response) => response.json())
       .then((data) => {
         this.props.updateToken(data.sessionToken);
-        console.log(data.sessionToken);
+        this.props.store(data.favorite_store);
+        console.log(data.favorite_store);
       });
   };
   render() {
@@ -58,6 +60,8 @@ class Login extends React.Component<acceptedProps, valueTypes> {
             name="password"
             type="password"
           />
+          <br />
+          <br />
           <Button type="primary" htmlType="submit" id="login-btn">
             Log in
           </Button>

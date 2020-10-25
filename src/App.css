@@ -1,3 +1,4 @@
+html,
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -5,35 +6,19 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  height: 100%;
+  width: 100%;
   background: linear-gradient(#868685, #ace0f9);
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
-.logo {
-  width: 120px;
-  height: 31px;
-  background: rgba(255, 255, 255, 0.2);
-  margin: 16px 24px 16px 0;
-  float: left;
-}
-
-.logotext {
-  color: white;
-  font-size: large;
-  font-weight: 600;
-  position: relative;
-  bottom: 16px;
-  left: 12px;
-}
-
 .cardback {
-  background: linear-gradient(#fdfbfb, #ebedee);
+  background: linear-gradient(#f5f7fa, #ada996);
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
@@ -112,6 +97,62 @@ code {
 [data-theme='dark'] .card-container>.ant-tabs-card .ant-tabs-tab-active {
   border-color: #141414;
   background: #141414;
+}
+
+
+
+.MenuofComponents {
+  position: relative;
+  overflow: hidden;
+  background: url(./assets/Menu.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.logform {
+  background: url(./assets/SignForm.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  min-height: 100%;
+  min-width: 1024px;
+  width: 100%;
+  height: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.coupons {
+  background: url(./assets/SignForm.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  min-height: 100%;
+  min-width: 1024px;
+  width: 100%;
+  height: auto;
+  /* position: fixed; */
+  top: 0;
+  left: 0;
+}
+
+.shopping {
+  background: url(./assets/SignForm.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  min-height: 100%;
+  min-width: 1024px;
+  width: 100%;
+  height: auto;
+  /* position: fixed; */
+  top: 0;
+  left: 0;
 }
 
 
