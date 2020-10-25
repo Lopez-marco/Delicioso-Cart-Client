@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Form, Input } from "antd";
-import "../App.css";
+import "./auth.css";
 
 type valueTypes = {
   email: string;
@@ -42,26 +42,36 @@ class Login extends React.Component<acceptedProps, valueTypes> {
   render() {
     return (
       <div id="login">
-        <h1>Login</h1>
-        <Form onFinish={this.handleSubmit} className="loginForm">
-          <h2>Email</h2>
-          <Input
-            id="loginInput"
-            onChange={(e) => this.setState({ email: e.target.value })}
-            name="email"
-            type="email"
-          />
-          <h2>Password</h2>
-          <Input
-            id="loginInput"
-            onChange={(e) => this.setState({ password: e.target.value })}
-            name="password"
-            type="password"
-          />
-          <Button type="primary" htmlType="submit" id="login-btn">
-            Log in
-          </Button>
-        </Form>
+        <h1 id="login-h1">Login</h1>
+        <div className="container">
+          <Form onFinish={this.handleSubmit} className="loginForm">
+            <h2>Email</h2>
+            <Input
+              id="loginInput"
+              onChange={(e) => this.setState({ email: e.target.value })}
+              name="email"
+              type="email"
+              style={{ width: 500 }}
+            />
+            <h2>Password</h2>
+            <Input
+              id="loginInput"
+              onChange={(e) => this.setState({ password: e.target.value })}
+              name="password"
+              type="password"
+              style={{ width: 500 }}
+            />
+            <br></br>
+            <Button
+              type="primary"
+              htmlType="submit"
+              id="login-btn"
+              className="btn"
+            >
+              Log in
+            </Button>
+          </Form>
+        </div>
       </div>
     );
   }

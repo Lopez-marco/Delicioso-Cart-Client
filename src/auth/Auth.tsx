@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Form, Input } from "antd";
-import "../App.css";
+import "./auth.css";
 import Login from "./Login";
 import Signup from "./Signup";
 
@@ -39,8 +39,7 @@ class Auth extends React.Component<acceptedProps, typeState> {
 
   render() {
     return (
-      <div id="container-auth">
-        <h3 id="welcomeSubheading">Welcome to Delicioso Cart</h3>
+      <div className="container">
         <div id="signuplogin">
           {this.state.showLogin ? (
             <Login
@@ -54,6 +53,7 @@ class Auth extends React.Component<acceptedProps, typeState> {
           <Button
             type="primary"
             id="toggle"
+            className="btn"
             onClick={(e) => this.loginToggle(e)}
           >
             {this.state.showLogin
