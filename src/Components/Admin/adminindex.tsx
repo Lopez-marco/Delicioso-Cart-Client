@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Typography, Button, Card, Tooltip, message } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import APIURL from "../../helpers/environment";
 
 export interface UserListProps {
   token: string;
@@ -34,7 +35,7 @@ class UserList extends React.Component<UserListProps, UserListState> {
 
   //get all users
   fetchList() {
-    fetch("http://localhost:3001/user/view-all", {
+    fetch(`${APIURL}/user/view-all`, {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -47,7 +48,7 @@ class UserList extends React.Component<UserListProps, UserListState> {
 
   // update user
   updateSpecificUser(userid: number) {
-    fetch(`http://localhost:3001/user/admin-user-update/${userid}`, {
+    fetch(`${APIURL}/user/admin-user-update/${userid}`, {
       method: "PUT",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -58,7 +59,7 @@ class UserList extends React.Component<UserListProps, UserListState> {
 
   // delete user
   deleteSpecificUser(userid: number) {
-    fetch(`http://localhost:3001/user/delete/${userid}`, {
+    fetch(`${APIURL}/user/delete/${userid}`, {
       method: "DELETE",
       headers: new Headers({
         "Content-Type": "application/json",

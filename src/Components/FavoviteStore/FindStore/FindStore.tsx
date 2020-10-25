@@ -4,6 +4,7 @@ import { Result, StoreResponce } from "../StoreInterface";
 import { GeoResponse } from "../GeolocationInterface";
 import Findstorelist from "./Findstorelist";
 import Menubar from "../../MainPage/Menubar";
+import APIURL from "../../../helpers/environment";
 
 export interface FindStoreProps {
   store: Function;
@@ -54,7 +55,7 @@ class FindStore extends React.Component<FindStoreProps, FindStoreState> {
     // console.log(this.state.favorite_store);
     if (this.state.lat && !this.state.name) {
       fetch(
-        `http://localhost:3001/near/${this.state.lat}/${this.state.lng}/${this.state.favorite_store}`,
+        `${APIURL}/near/${this.state.lat}/${this.state.lng}/${this.state.favorite_store}`,
         {
           method: "GET",
         }
