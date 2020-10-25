@@ -1,8 +1,11 @@
 import React from "react";
 import Auth from "./auth/Auth";
+import "./App.css";
+import UserList from "./Components/Admin/adminindex";
 import { BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
-import Index from "./components/Index";
+import Index from "./Components/Index";
+
 
 export interface AppProps {}
 
@@ -40,6 +43,7 @@ class App extends React.Component<AppProps, AppState> {
           favorite_store={this.state.favorite_store}
           store={this.store}
         />
+        <UserList token={this.state.token} />
       </Router>
     ) : (
       <Auth
@@ -49,6 +53,7 @@ class App extends React.Component<AppProps, AppState> {
         updateToken={this.updateToken}
         store={this.store}
       />
+
     );
   };
 

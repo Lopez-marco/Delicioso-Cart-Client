@@ -1,3 +1,4 @@
+import "./auth.css";
 import React from "react";
 import { Button, Row, Card, Col, Image } from "antd";
 import "../App.css";
@@ -8,7 +9,6 @@ import Logo from "../assets/DeliciosoCartlong.png";
 type acceptedProps = {
   token: string;
   favorite_store: string;
-
   updateUserRole: boolean;
   updateToken: Function;
   store: Function;
@@ -61,7 +61,6 @@ class Auth extends React.Component<acceptedProps, typeState> {
           </Col>
           <Col span={10}>
             <Card className="cardback" hoverable style={{ borderRadius: 10 }}>
-              <h3 id="welcomeSubheading">Welcome to Delicioso Cart</h3>
               <div id="signuplogin">
                 {this.state.showLogin ? (
                   <Login
@@ -76,6 +75,7 @@ class Auth extends React.Component<acceptedProps, typeState> {
                 <Button
                   type="primary"
                   id="toggle"
+                  className="btn"
                   onClick={(e) => this.loginToggle(e)}
                 >
                   {this.state.showLogin

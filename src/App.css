@@ -100,6 +100,7 @@ code {
 }
 
 
+
 .MenuofComponents {
   position: relative;
   overflow: hidden;
@@ -152,4 +153,38 @@ code {
   /* position: fixed; */
   top: 0;
   left: 0;
+}
+
+
+/* Shopping List */
+#shopping-list-component {
+  margin-right: 20%;
+  margin-left: 20%;
+  padding: 3em;
+  display: flex;
+
+}
+#shopping-list-component-select {
+  margin: 6em;
+  padding: 3em;
+  display: flex;
+
+}
+
+
+#shopping-list-header {
+  background: rgb(218, 113, 15);
+  display: flex;
+  justify-content: space-around;
+}
+
+
+#manage-lists-component {
+  padding: 4em;
+  flex-grow: 1;
+}
+
+#single-shopping-list {
+  padding: 4em;
+  flex-grow: 1;
 }

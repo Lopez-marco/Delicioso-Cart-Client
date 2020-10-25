@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Form, Input } from "antd";
-import "../App.css";
+import "./auth.css";
 
 type valueTypes = {
   username: string;
@@ -53,45 +53,58 @@ class Signup extends React.Component<acceptedProps, valueTypes> {
     return (
       <div id="signupDiv">
         <h1 id="signupHeading">Sign Up to Join the Fun</h1>
-        <Form onFinish={this.handleSubmit} className="signupForm">
-          <h2>Username</h2>
-          <Input
-            className="signupInput"
-            onChange={(e) => this.setState({ username: e.target.value })}
-            value={this.state.username}
-            name="username"
-            type="text"
-          />
-          <h2>Email</h2>
-          <Input
-            id="signupInputEmail"
-            onChange={(e) => this.setState({ email: e.target.value })}
-            value={this.state.email}
-            name="email"
-            type="email"
-          />
-          <h2>Password</h2>
-          <Input
-            className="signupInput"
-            onChange={(e) => this.setState({ password: e.target.value })}
-            name="password"
-            value={this.state.password}
-            type="password"
-          />
-          <h2>Favorite Store</h2>
-          <Input
-            className="signupInput"
-            onChange={(e) => this.setState({ favorite_store: e.target.value })}
-            value={this.state.favorite_store}
-            name="favorite_store"
-            type="text"
-          />
-          <br />
-          <br />
-          <Button type="primary" htmlType="submit" id="register-btn">
-            Register
-          </Button>
-        </Form>
+
+        <div className="container">
+          <Form onFinish={this.handleSubmit} className="signupForm">
+            <h2>Username</h2>
+            <Input
+              className="signupInput"
+              onChange={(e) => this.setState({ username: e.target.value })}
+              value={this.state.username}
+              name="username"
+              type="text"
+              style={{ width: 500 }}
+            />
+            <h2>Email</h2>
+            <Input
+              id="signupInputEmail"
+              onChange={(e) => this.setState({ email: e.target.value })}
+              value={this.state.email}
+              name="email"
+              type="email"
+              style={{ width: 500 }}
+            />
+            <h2>Password</h2>
+            <Input
+              className="signupInput"
+              onChange={(e) => this.setState({ password: e.target.value })}
+              name="password"
+              value={this.state.password}
+              type="password"
+              style={{ width: 500 }}
+            />
+            <h2>Favorite Store</h2>
+            <Input
+              className="signupInput"
+              onChange={(e) =>
+                this.setState({ favorite_store: e.target.value })
+              }
+              value={this.state.favorite_store}
+              name="favorite_store"
+              type="text"
+              style={{ width: 500 }}
+            />
+            <br></br>
+            <Button
+              type="primary"
+              htmlType="submit"
+              id="register-btn"
+              className="btn"
+            >
+              Register
+            </Button>
+          </Form>
+        </div>
       </div>
     );
   }

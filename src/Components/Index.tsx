@@ -4,7 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import FindStore from "./FavoviteStore/FindStore/FindStore";
 import MenuofComponents from "./MenuofComponents";
 import CouponsMainPage from "./coupons/CouponsMainPage";
-import ShoppingList from "./ShoppingList/ShoppingList";
+import ShoppingLists from "./ShoppingList/ShoppingLists";
 
 export interface IndexProps {
   token: string;
@@ -37,7 +37,7 @@ class Index extends React.Component<IndexProps, IndexState> {
             />
           </Route>
           <Route exact path="/shoppingList">
-            <ShoppingList token={this.props.token} />
+            <ShoppingLists token={this.props.token} />
           </Route>
         </Switch>
       </div>
