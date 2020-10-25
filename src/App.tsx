@@ -1,10 +1,10 @@
 import React from "react";
 import Auth from "./auth/Auth";
 import "./App.css";
-import UserList from "./Components/Admin/adminindex";
+import UserList from "./components/Admin/adminindex";
 import { BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
-import Index from "./Components/Index";
+import Index from "./components/Index";
 
 export interface AppProps {}
 
