@@ -33,13 +33,14 @@
     "react-xml-parser": "^1.1.6",
     "redux": "^4.0.5",
     "typescript": "^3.7.5",
+    "webpack-cli": "^4.1.0",
     "xml-js": "^1.6.11",
     "xml2js": "^0.4.23",
     "yarn": "^1.22.5"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "webpack --config webpack.config.js && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
