@@ -3,6 +3,7 @@ import { Tabs, Row, Card, Button, Col } from "antd";
 import { PaperClipOutlined, BarcodeOutlined } from "@ant-design/icons";
 import Coupons from "./CouponsApi/CouponsParent";
 import MyCoupons from "./MyCoupons/MyCoupons";
+import Menubar from "../MainPage/Menubar";
 
 const { TabPane } = Tabs;
 
@@ -26,17 +27,25 @@ class CouponsMainPage extends React.Component<
   }
   render() {
     return (
-      <div>
-        <Row gutter={[18, 16]}>
+      <div className="coupons">
+        <br />
+        <br />
+        <br />
+        <Row gutter={[4, 6]} justify="center">
           <Col></Col>
         </Row>
-        <Row gutter={[18, 16]} justify={"center"}>
+        <Row gutter={[4, 48]} justify="center">
+          <Col></Col>
+          <Col span={4}>
+            <Menubar />{" "}
+          </Col>
+          <Col span={1}></Col>
+
           <Card
-            className="cardback"
             hoverable
             style={{
               cursor: "default",
-              width: 1300,
+              width: 1000,
               marginTop: 16,
               borderRadius: 10,
             }}

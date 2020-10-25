@@ -28,7 +28,6 @@ class Navbar extends React.Component<NavbarProps, NavbarState> {
   render() {
     return (
       <div>
-        {/* <Header > */}
         <Menu
           mode="horizontal"
           style={{ position: "fixed", zIndex: 1, width: "100%" }}
@@ -47,7 +46,6 @@ class Navbar extends React.Component<NavbarProps, NavbarState> {
             Log Out
           </Menu.Item>
         </Menu>
-        {/* </Header> */}
       </div>
     );
   }

@@ -3,6 +3,7 @@ import { Card, Row, Col } from "antd";
 import { Result, StoreResponce } from "../StoreInterface";
 import { GeoResponse } from "../GeolocationInterface";
 import Findstorelist from "./Findstorelist";
+import Menubar from "../../MainPage/Menubar";
 
 export interface FindStoreProps {
   store: Function;
@@ -80,14 +81,17 @@ class FindStore extends React.Component<FindStoreProps, FindStoreState> {
           <Col></Col>
         </Row>
 
-        <Row gutter={[18, 16]} justify={"center"}>
-          <Col span={4}></Col>
+        <Row gutter={[6, 16]} justify={"center"}>
+          <Col span={4}>
+            <Menubar />{" "}
+          </Col>
+          <Col span={1}></Col>
           <Col span={18}>
             <Card
               className="cardback"
               size="small"
               title="Stores"
-              style={{ width: 1050, borderRadius: 10 }}
+              style={{ width: 1000, borderRadius: 10 }}
             >
               <Row gutter={[18, 16]} justify="center">
                 {this.state.storefounder.length > 0 ? (
