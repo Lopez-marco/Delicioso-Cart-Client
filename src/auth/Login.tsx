@@ -44,7 +44,6 @@ class Login extends React.Component<acceptedProps, valueTypes> {
   render() {
     return (
       <div id="login">
-
         <h1 id="login-h1">Login</h1>
         <div className="container">
           <Form onFinish={this.handleSubmit} className="loginForm">
@@ -75,30 +74,6 @@ class Login extends React.Component<acceptedProps, valueTypes> {
             </Button>
           </Form>
         </div>
-
-        <h1>Login</h1>
-        <Form onFinish={this.handleSubmit} className="loginForm">
-          <h2>Email</h2>
-          <Input
-            id="loginInput"
-            onChange={(e) => this.setState({ email: e.target.value })}
-            name="email"
-            type="email"
-          />
-          <h2>Password</h2>
-          <Input
-            id="loginInput"
-            onChange={(e) => this.setState({ password: e.target.value })}
-            name="password"
-            type="password"
-          />
-          <br />
-          <br />
-          <Button type="primary" htmlType="submit" id="login-btn">
-            Log in
-          </Button>
-        </Form>
-
       </div>
     );
   }
