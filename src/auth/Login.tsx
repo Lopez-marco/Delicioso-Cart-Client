@@ -76,29 +76,6 @@ class Login extends React.Component<acceptedProps, valueTypes> {
           </Form>
         </div>
 
-        <h1>Login</h1>
-        <Form onFinish={this.handleSubmit} className="loginForm">
-          <h2>Email</h2>
-          <Input
-            id="loginInput"
-            onChange={(e) => this.setState({ email: e.target.value })}
-            name="email"
-            type="email"
-          />
-          <h2>Password</h2>
-          <Input
-            id="loginInput"
-            onChange={(e) => this.setState({ password: e.target.value })}
-            name="password"
-            type="password"
-          />
-          <br />
-          <br />
-          <Button type="primary" htmlType="submit" id="login-btn">
-            Log in
-          </Button>
-        </Form>
-
       </div>
     );
   }

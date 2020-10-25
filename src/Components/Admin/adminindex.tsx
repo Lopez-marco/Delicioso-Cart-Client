@@ -66,7 +66,7 @@ class UserList extends React.Component<UserListProps, UserListState> {
     }).then((res) => this.fetchList());
   }
   displayCards = () => {
-    if (this.state.fetchedUsers.length == 0) {
+    if (this.state.fetchedUsers.length === 0) {
       return;
     }
     return this.state.fetchedUsers.map((carddata: adminGetAllResponse) => {
