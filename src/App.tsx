@@ -1,30 +1,41 @@
 import React from "react";
 import Auth from "./auth/Auth";
 import "./App.css";
-import UserList from "./Components/Admin/adminindex";
 import { BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
 import Index from "./Components/Index";
+import jwt_decode from "jwt-decode";
 
-export interface AppProps {}
+export interface decodedToken {
+  account_type: boolean;
+}
+
+export interface AppProps { }
 
 export interface AppState {
   token: string;
   favorite_store: string;
+  isAdmin: boolean;
 }
 
 class App extends React.Component<AppProps, AppState> {
   constructor(props: AppProps) {
     super(props);
-    this.state = { token: "", favorite_store: "" };
+    let decoded:decodedToken = {account_type: false};
+    if(localStorage.getItem('token')) {
+      decoded = jwt_decode(localStorage.getItem('token')!);
+      console.log(decoded.account_type)
+    }
+    this.state = { token: "", favorite_store: "", isAdmin: decoded.account_type };
   }
 
   updateToken = (token: string) => {
     if (localStorage.getItem("token")) {
       this.setState({ token: token });
     }
+    let decoded:decodedToken = jwt_decode(token);
     localStorage.setItem("token", token);
-    this.setState({ token: token });
+    this.setState({ token: token, isAdmin: decoded.account_type });
   };
   store = (favorite_store: string) => {
     if (localStorage.getItem("favorite_store")) {
@@ -41,21 +52,22 @@ class App extends React.Component<AppProps, AppState> {
           token={this.state.token}
           favorite_store={this.state.favorite_store}
           store={this.store}
+          isAdmin={this.state.isAdmin}
         />
-        <UserList token={this.state.token} />
       </Router>
     ) : (
-      <Auth
-        token={""}
-        favorite_store={""}
-        updateUserRole={false}
-        updateToken={this.updateToken}
-        store={this.store}
-      />
-    );
+        <Auth
+          token={""}
+          favorite_store={""}
+          updateUserRole={false}
+          updateToken={this.updateToken}
+          store={this.store}
+        />
+      );
   };
 
   render() {
+    
     return <div>{this.userLogin()}</div>;
   }
 }

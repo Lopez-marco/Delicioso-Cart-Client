@@ -3,9 +3,12 @@ import { Menu, Layout, Image } from "antd";
 import LogoSmall from "../../assets/DeliciosoCartShort.png";
 import { HomeOutlined, LogoutOutlined } from "@ant-design/icons";
 
+
 const { Header } = Layout;
 
-export interface NavbarProps {}
+export interface NavbarProps {
+  isAdmin: boolean;
+}
 
 export interface NavbarState {}
 
@@ -41,6 +44,14 @@ class Navbar extends React.Component<NavbarProps, NavbarState> {
               Home
             </a>
           </Menu.Item>
+          {this.props.isAdmin ? 
+          <Menu.Item>
+            <a href="/admin">
+              <HomeOutlined />
+              Admin
+            </a>
+          </Menu.Item> : null}
+          
           <Menu.Item style={{ float: "right" }} onClick={this.clearToken}>
             <LogoutOutlined />
             Log Out

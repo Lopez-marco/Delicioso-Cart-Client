@@ -1,4 +1,4 @@
-import React from "react";
+import React, { MouseEvent } from "react";
 import { Item } from "./Couponsinterface";
 import {
   Row,
@@ -30,7 +30,7 @@ class CouponCards extends React.Component<CouponCardsProps, CouponCardsState> {
     this.state = {};
   }
 
-  handleCouponAdd = (event: any) => {
+  handleCouponAdd = (event: MouseEvent) => {
     let token = this.props.token
       ? this.props.token
       : localStorage.getItem("token");
