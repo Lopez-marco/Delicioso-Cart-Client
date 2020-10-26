@@ -4,9 +4,13 @@ import "./App.css";
 import { BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
 import Index from "./Components/Index";
-import APIURL from "./helpers/environment";
+import jwt_decode from "jwt-decode";
 
-export interface AppProps {}
+export interface decodedToken {
+  account_type: boolean;
+}
+
+export interface AppProps { }
 
 export interface AppState {
   token: string;
@@ -20,28 +24,13 @@ class App extends React.Component<AppProps, AppState> {
     this.state = { token: "", favorite_store: "", isAdmin: false };
   }
 
-  componentDidMount() {
-    if(this.state.token) {
-    fetch(`${APIURL}/user/login`, {
-      method: "GET",
-      headers: new Headers({
-        "Content-Type": "application/json",
-        "Authorization": this.state.token
-      }),
-    })
-      .then((response) => response.json())
-      .then((userRole) => {
-        this.setState({isAdmin: userRole})
-      });
-  }
-}
-
   updateToken = (token: string) => {
     if (localStorage.getItem("token")) {
       this.setState({ token: token });
     }
+    let decoded:decodedToken = jwt_decode(token);
     localStorage.setItem("token", token);
-    this.setState({ token: token });
+    this.setState({ token: token, isAdmin: decoded.account_type });
   };
   store = (favorite_store: string) => {
     if (localStorage.getItem("favorite_store")) {
@@ -62,17 +51,18 @@ class App extends React.Component<AppProps, AppState> {
         />
       </Router>
     ) : (
-      <Auth
-        token={""}
-        favorite_store={""}
-        updateUserRole={false}
-        updateToken={this.updateToken}
-        store={this.store}
-      />
-    );
+        <Auth
+          token={""}
+          favorite_store={""}
+          updateUserRole={false}
+          updateToken={this.updateToken}
+          store={this.store}
+        />
+      );
   };
 
   render() {
+    
     return <div>{this.userLogin()}</div>;
   }
 }
