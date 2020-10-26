@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Form, Input } from "antd";
 import "./auth.css";
+import APIURL from "../helpers/environment";
 
 type valueTypes = {
   email: string;
@@ -24,7 +25,7 @@ class Login extends React.Component<acceptedProps, valueTypes> {
   }
 
   handleSubmit = (event: any) => {
-    fetch("http://localhost:3001/user/login", {
+    fetch(`${APIURL}/user/login`, {
       method: "POST",
       body: JSON.stringify({
         email: this.state.email,
@@ -38,7 +39,6 @@ class Login extends React.Component<acceptedProps, valueTypes> {
       .then((data) => {
         this.props.updateToken(data.sessionToken);
         this.props.store(data.favorite_store);
-        console.log(data.favorite_store);
       });
   };
   render() {

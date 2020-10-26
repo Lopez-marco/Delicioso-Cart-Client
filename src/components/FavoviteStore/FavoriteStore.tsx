@@ -2,6 +2,7 @@ import React from "react";
 import { Card, Row, Col, Image } from "antd";
 import { GeoResponse } from "./GeolocationInterface";
 import UpdateStoreModal from "./UpdateStoreModal";
+import APIURL from "../../helpers/environment";
 
 export interface FavoriteStoreProps {
   store: Function;
@@ -85,7 +86,7 @@ class FavoriteStore extends React.Component<
   favoriteStore() {
     if (this.state.lat && !this.state.icon) {
       fetch(
-        `http://localhost:3001/fav/${this.state.lat}/${this.state.lng}/${this.state.favorite_store}`,
+        `${APIURL}/fav/${this.state.lat}/${this.state.lng}/${this.state.favorite_store}`,
         {
           method: "GET",
         }

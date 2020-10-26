@@ -6,7 +6,6 @@ import { BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
 import Index from "./Components/Index";
 
-
 export interface AppProps {}
 
 export interface AppState {
@@ -43,7 +42,6 @@ class App extends React.Component<AppProps, AppState> {
           favorite_store={this.state.favorite_store}
           store={this.store}
         />
-        <UserList token={this.state.token} />
       </Router>
     ) : (
       <Auth
@@ -53,7 +51,6 @@ class App extends React.Component<AppProps, AppState> {
         updateToken={this.updateToken}
         store={this.store}
       />
-
     );
   };
 

@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Form, Select } from "antd";
+import APIURL from "../../helpers/environment";
 
 const { Option } = Select;
 
@@ -25,7 +26,7 @@ class UpdateStoreModal extends React.Component<
 
   UpdateStore() {
     let token = localStorage.getItem("token");
-    fetch("http://localhost:3001/user/user-update", {
+    fetch(`${APIURL}/user/user-update`, {
       method: "PUT",
       body: JSON.stringify({
         user: {

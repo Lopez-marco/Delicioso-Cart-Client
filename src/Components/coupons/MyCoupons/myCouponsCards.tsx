@@ -12,6 +12,7 @@ import {
 import { MyCouponResult } from "./myCouponInterface";
 import { DeleteOutlined } from "@ant-design/icons";
 import MyCouponsModal from "./MyCouponsModal";
+import APIURL from "../../../helpers/environment";
 
 export interface myCouponsCardsProps {
   key: number;
@@ -41,16 +42,13 @@ class myCouponsCards extends React.Component<
     let token = this.props.token
       ? this.props.token
       : localStorage.getItem("token");
-    fetch(
-      `http://localhost:3001/coupons/delete/${this.props.myCouponCards.id}`,
-      {
-        method: "Delete",
-        headers: new Headers({
-          "Content-Type": "application/json",
-          Authorization: token ? token : "",
-        }),
-      }
-    )
+    fetch(`${APIURL}/coupons/delete/${this.props.myCouponCards.id}`, {
+      method: "Delete",
+      headers: new Headers({
+        "Content-Type": "application/json",
+        Authorization: token ? token : "",
+      }),
+    })
       .then((res) => res.json())
       .then((res: number) => {
         console.log(res);
