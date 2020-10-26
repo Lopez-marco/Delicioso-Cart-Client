@@ -18,6 +18,7 @@ export interface UserListState {
 class UserList extends React.Component<UserListProps, UserListState> {
   constructor(props: UserListProps) {
     super(props);
+    console.log('admin thing');
     this.state = {
       fetchedUsers: [],
       username: "",
