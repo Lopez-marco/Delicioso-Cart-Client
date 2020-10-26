@@ -1,4 +1,4 @@
-import React from "react";
+import React, { MouseEvent } from "react";
 import { Modal, Button, Tooltip, Col, Row, Image, Typography } from "antd";
 import { InfoCircleOutlined } from "@ant-design/icons";
 import { MyCouponResult } from "./myCouponInterface";
@@ -28,14 +28,14 @@ class MyCouponsModal extends React.Component<
     });
   };
 
-  handleOk = (e: any) => {
+  handleOk = (e: MouseEvent) => {
     console.log(e);
     this.setState({
       visible: false,
     });
   };
 
-  handleCancel = (e: any) => {
+  handleCancel = (e: MouseEvent) => {
     console.log();
     this.setState({
       visible: false,

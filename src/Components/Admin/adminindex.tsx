@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col, Typography, Button, Card, Tooltip, message } from "antd";
+import { Row, Col, Select, Button, Card, Switch } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import APIURL from "../../helpers/environment";
-
+const { Option } = Select;
 export interface UserListProps {
   token: string;
 }
-
 export interface UserListState {
   fetchedUsers: adminGetAllResponse[];
   username: string;
@@ -14,7 +13,13 @@ export interface UserListState {
   favorite_store: string;
   account_type: boolean;
 }
-
+export interface UpdateUserAccountProps {
+  updateSpecificUser: Function;
+}
+export interface UpdateUserAccountState {
+  account_type: boolean;
+  visible: boolean;
+}
 class UserList extends React.Component<UserListProps, UserListState> {
   constructor(props: UserListProps) {
     super(props);
@@ -26,13 +31,12 @@ class UserList extends React.Component<UserListProps, UserListState> {
       account_type: false,
     };
     this.fetchList = this.fetchList.bind(this);
-    this.updateSpecificUser = this.updateSpecificUser.bind(this);
+    this.updateSpecificUserFalse = this.updateSpecificUserFalse.bind(this);
     this.deleteSpecificUser = this.deleteSpecificUser.bind(this);
   }
   componentDidMount() {
     this.fetchList();
   }
-
   //get all users
   fetchList() {
     fetch(`${APIURL}/user/view-all`, {
@@ -45,16 +49,29 @@ class UserList extends React.Component<UserListProps, UserListState> {
       .then((res) => res.json())
       .then((res) => this.setState({ fetchedUsers: res }));
   }
-
   // update user
-  updateSpecificUser(userid: number) {
+  updateSpecificUserFalse(userid = null) {
     fetch(`${APIURL}/user/admin-user-update/${userid}`, {
       method: "PUT",
+      body: JSON.stringify({
+        user: {
+          account_type: this.state.account_type,
+        },
+      }),
       headers: new Headers({
         "Content-Type": "application/json",
         Authorization: `${localStorage.getItem("token")}`,
       }),
-    }).then((res) => this.fetchList());
+      // }).then((res) => this.fetchList());
+    }).then((res) => {
+      this.setState({ account_type: this.state.account_type });
+      this.fetchList();
+    });
+  }
+
+  onChange(e: any) {
+    // console.log(`checked = ${e.target.checked}`);
+    this.updateSpecificUserFalse();
   }
 
   // delete user
@@ -100,7 +117,7 @@ class UserList extends React.Component<UserListProps, UserListState> {
                 shape="circle"
                 icon={<DeleteOutlined />}
               />
-              <Button
+              {/* <Button
                 onClick={() =>
                   carddata.id
                     ? this.updateSpecificUser(carddata.id)
@@ -109,7 +126,27 @@ class UserList extends React.Component<UserListProps, UserListState> {
                 type="primary"
                 shape="circle"
                 icon={<EditOutlined />}
-              />
+              /> */}
+
+              {/* <Switch
+                defaultChecked
+                onChange={this.setState({ account_type: true })}
+              /> */}
+              {/* <Form>
+                <Select
+                  defaultValue="Change Account Type"
+                  onChange={(value: string) =>
+                    this.setState({ account_type: `${value}` })
+                  }
+                  style={{ width: 130 }}
+                >
+                  <Option value="true">Is Admin</Option>
+                  <Option value="false">Not an Admin</Option>
+                </Select>
+                <Button key="submit" type="primary" onClick={this.handleOk}>
+                  Submit
+                </Button>
+              </Form> */}
             </Col>
           </Row>
         </Card>
@@ -120,7 +157,6 @@ class UserList extends React.Component<UserListProps, UserListState> {
     return (
       <>
         <h1>Users</h1>
-
         <div>
           <Col>{this.displayCards()}</Col>
         </div>
@@ -128,9 +164,7 @@ class UserList extends React.Component<UserListProps, UserListState> {
     );
   }
 }
-
 export default UserList;
-
 export interface adminGetAllResponse {
   id?: number;
   username?: string;
