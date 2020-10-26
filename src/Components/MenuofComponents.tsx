@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Col, Card, Image } from "antd";
 import { Link } from "react-router-dom";
-import FavoriteStore from "../components/FavoviteStore/FavoriteStore";
+import FavoriteStore from "../Components/FavoviteStore/FavoriteStore";
 import Logo from "../assets/DeliciosoCartBig.png";
 import List from "../assets/test.png";
 import Shop from "../assets/shops.png";
