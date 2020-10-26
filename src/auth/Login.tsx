@@ -54,14 +54,16 @@ class Login extends React.Component<acceptedProps, valueTypes> {
               name="email"
               type="email"
               style={{ width: 500 }}
+              required
             />
             <h2>Password</h2>
-            <Input
+            <Input.Password
               id="loginInput"
               onChange={(e) => this.setState({ password: e.target.value })}
               name="password"
               type="password"
               style={{ width: 500 }}
+              required
             />
             <br></br>
             <Button
