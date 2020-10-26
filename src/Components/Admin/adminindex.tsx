@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Row, Col, Select, Button, Card, Switch } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import APIURL from "../../helpers/environment";
-const { Option } = Select;
+// const { Option } = Select;
 export interface UserListProps {
   token: string;
 }
@@ -31,7 +31,7 @@ class UserList extends React.Component<UserListProps, UserListState> {
       account_type: false,
     };
     this.fetchList = this.fetchList.bind(this);
-    this.updateSpecificUserFalse = this.updateSpecificUserFalse.bind(this);
+    this.updateSpecificUser = this.updateSpecificUser.bind(this);
     this.deleteSpecificUser = this.deleteSpecificUser.bind(this);
   }
   componentDidMount() {
@@ -50,12 +50,15 @@ class UserList extends React.Component<UserListProps, UserListState> {
       .then((res) => this.setState({ fetchedUsers: res }));
   }
   // update user
-  updateSpecificUserFalse(userid = null) {
+  updateSpecificUser(
+    userid: number | undefined,
+    account_type: boolean | undefined
+  ) {
     fetch(`${APIURL}/user/admin-user-update/${userid}`, {
       method: "PUT",
       body: JSON.stringify({
         user: {
-          account_type: this.state.account_type,
+          account_type: !account_type,
         },
       }),
       headers: new Headers({
@@ -68,12 +71,6 @@ class UserList extends React.Component<UserListProps, UserListState> {
       this.fetchList();
     });
   }
-
-  onChange(e: any) {
-    // console.log(`checked = ${e.target.checked}`);
-    this.updateSpecificUserFalse();
-  }
-
   // delete user
   deleteSpecificUser(userid: number) {
     fetch(`${APIURL}/user/delete/${userid}`, {
@@ -88,70 +85,67 @@ class UserList extends React.Component<UserListProps, UserListState> {
     if (this.state.fetchedUsers.length === 0) {
       return;
     }
-    return this.state.fetchedUsers.map((carddata: adminGetAllResponse) => {
-      return (
-        <Card
-          className="cardback"
-          hoverable
-          style={{
-            width: 400,
-            height: 170,
-            marginTop: 16,
-            borderRadius: 10,
-          }}
-        >
-          <Row>
-            <Col span={7}></Col>
-            <Col span={14}>
-              <h4>{carddata.username}</h4>
-              <h4>{carddata.email}</h4>
-              <h4>{carddata.favorite_store}</h4>
-              <h4>{carddata.account_type}</h4>
-              <Button
-                onClick={() =>
-                  carddata.id
-                    ? this.deleteSpecificUser(carddata.id)
-                    : alert("no ID")
-                }
-                type="primary"
-                shape="circle"
-                icon={<DeleteOutlined />}
-              />
-              {/* <Button
-                onClick={() =>
-                  carddata.id
-                    ? this.updateSpecificUser(carddata.id)
-                    : alert("no ID")
-                }
-                type="primary"
-                shape="circle"
-                icon={<EditOutlined />}
-              /> */}
-
-              {/* <Switch
-                defaultChecked
-                onChange={this.setState({ account_type: true })}
-              /> */}
-              {/* <Form>
-                <Select
-                  defaultValue="Change Account Type"
-                  onChange={(value: string) =>
-                    this.setState({ account_type: `${value}` })
+    return this.state.fetchedUsers.map(
+      (carddata: adminGetAllResponse, index: number) => {
+        return (
+          <Card
+            key={index}
+            className="cardback"
+            hoverable
+            style={{
+              width: 400,
+              height: 170,
+              marginTop: 16,
+              borderRadius: 10,
+            }}
+          >
+            <Row>
+              <Col span={7}></Col>
+              <Col span={14}>
+                <h4>{carddata.username}</h4>
+                <h4>{carddata.email}</h4>
+                <h4>{carddata.favorite_store}</h4>
+                <h4>{carddata.account_type}</h4>
+                <Button
+                  onClick={() =>
+                    carddata.id
+                      ? this.deleteSpecificUser(carddata.id)
+                      : alert("no ID")
                   }
-                  style={{ width: 130 }}
-                >
-                  <Option value="true">Is Admin</Option>
-                  <Option value="false">Not an Admin</Option>
-                </Select>
-                <Button key="submit" type="primary" onClick={this.handleOk}>
-                  Submit
-                </Button>
-              </Form> */}
-            </Col>
-          </Row>
-        </Card>
-      );
-    });
+                  type="primary"
+                  shape="circle"
+                  icon={<DeleteOutlined />}
+                />
+                {carddata.account_type ? (
+                  <Button
+                    type="primary"
+                    shape="circle"
+                    icon={<EditOutlined />}
+                    onClick={() =>
+                      this.updateSpecificUser(
+                        carddata.id,
+                        carddata.account_type
+                      )
+                    }
+                  />
+                ) : (
+                  <Button
+                    onClick={() =>
+                      this.updateSpecificUser(
+                        carddata.id,
+                        carddata.account_type
+                      )
+                    }
+                  >
+                    Not Admin
+                  </Button>
+                )}
+              </Col>
+            </Row>
+          </Card>
+        );
+      }
+    );
   };
   render() {
     return (
