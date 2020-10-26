@@ -21,7 +21,12 @@ export interface AppState {
 class App extends React.Component<AppProps, AppState> {
   constructor(props: AppProps) {
     super(props);
-    this.state = { token: "", favorite_store: "", isAdmin: false };
+    let decoded:decodedToken = {account_type: false};
+    if(localStorage.getItem('token')) {
+      decoded = jwt_decode(localStorage.getItem('token')!);
+      console.log(decoded.account_type)
+    }
+    this.state = { token: "", favorite_store: "", isAdmin: decoded.account_type };
   }
 
   updateToken = (token: string) => {

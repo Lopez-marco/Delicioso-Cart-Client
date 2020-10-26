@@ -3,6 +3,7 @@ import { Menu, Layout, Image } from "antd";
 import LogoSmall from "../../assets/DeliciosoCartShort.png";
 import { HomeOutlined, LogoutOutlined } from "@ant-design/icons";
 
+
 const { Header } = Layout;
 
 export interface NavbarProps {
@@ -43,7 +44,8 @@ class Navbar extends React.Component<NavbarProps, NavbarState> {
               Home
             </a>
           </Menu.Item>
-          {this.props.isAdmin ? <Menu.Item>
+          {this.props.isAdmin ? 
+          <Menu.Item>
             <a href="/admin">
               <HomeOutlined />
               Admin
