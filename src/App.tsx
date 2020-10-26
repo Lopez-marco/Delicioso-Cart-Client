@@ -42,7 +42,6 @@ class App extends React.Component<AppProps, AppState> {
           favorite_store={this.state.favorite_store}
           store={this.store}
         />
-        <UserList token={this.state.token} />
       </Router>
     ) : (
       <Auth

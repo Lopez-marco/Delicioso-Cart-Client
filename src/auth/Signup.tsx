@@ -1,7 +1,9 @@
 import React from "react";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, Select } from "antd";
 import "./auth.css";
 import APIURL from "../helpers/environment";
+
+const { Option } = Select;
 
 type valueTypes = {
   username: string;
@@ -14,6 +16,7 @@ type valueTypes = {
 
 type acceptedProps = {
   updateToken: Function;
+  store: Function;
 };
 
 class Signup extends React.Component<acceptedProps, valueTypes> {
@@ -46,6 +49,7 @@ class Signup extends React.Component<acceptedProps, valueTypes> {
       .then((response) => response.json())
       .then((data) => {
         this.props.updateToken(data.sessionToken);
+        this.props.store(data.favorite_store);
         console.log("Signup Working");
         console.log(data.sessionToken);
       });
@@ -74,6 +78,7 @@ class Signup extends React.Component<acceptedProps, valueTypes> {
               name="email"
               type="email"
               style={{ width: 500 }}
+              required
             />
             <h2>Password</h2>
             <Input
@@ -85,7 +90,7 @@ class Signup extends React.Component<acceptedProps, valueTypes> {
               style={{ width: 500 }}
             />
             <h2>Favorite Store</h2>
-            <Input
+            {/* <Input
               className="signupInput"
               onChange={(e) =>
                 this.setState({ favorite_store: e.target.value })
@@ -94,7 +99,24 @@ class Signup extends React.Component<acceptedProps, valueTypes> {
               name="favorite_store"
               type="text"
               style={{ width: 500 }}
-            />
+            /> */}
+            <Select
+              defaultValue="Change Store"
+              onChange={(value: string) =>
+                this.setState({ favorite_store: `${value}` })
+              }
+              style={{ width: 130 }}
+            >
+              <Option value="target">Target</Option>
+              <Option value="walmart">Walmart</Option>
+              <Option value="meijer">Meijer</Option>
+              <Option value="wholefoods">Whole Foods</Option>
+              <Option value="familydollar">Family Dollar</Option>
+              <Option value="freshmarket">Fresh Market</Option>
+              <Option value="traderjoes">Trader Joe's</Option>
+              <Option value="safewayfoods">SafeWay Foods</Option>
+              <Option value="Saraga">Saraga</Option>
+            </Select>
             <br></br>
             <Button
               type="primary"
