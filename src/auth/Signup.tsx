@@ -1,4 +1,4 @@
-import React from "react";
+import React, { MouseEvent } from "react";
 import { Button, Form, Input, Select } from "antd";
 import "./auth.css";
 import APIURL from "../helpers/environment";
@@ -32,7 +32,7 @@ class Signup extends React.Component<acceptedProps, valueTypes> {
     };
   }
 
-  handleSubmit = (event: any) => {
+  handleSubmit = (event: MouseEvent) => {
     console.log(this.state.username, this.state.email, this.state.password);
     fetch(`${APIURL}/user/add-user`, {
       method: "POST",

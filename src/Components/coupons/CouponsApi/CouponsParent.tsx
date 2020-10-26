@@ -29,7 +29,7 @@ class CouponsParent extends React.Component<
       .then((d) => {
         var parseString = require("xml2js").parseString;
         var xml = d.data;
-        parseString(xml, (err: any, result: CouponsResponse) => {
+        parseString(xml, (err: Error, result: CouponsResponse) => {
           console.dir(result);
           this.setState({
             couponsvalue: result.coupons.item,
