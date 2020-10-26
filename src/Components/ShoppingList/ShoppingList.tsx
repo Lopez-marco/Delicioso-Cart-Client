@@ -78,6 +78,7 @@ class ShoppingList extends React.Component<
 
   // add item quick way
   addItemQuick() {
+    if(this.state.item) {
     fetch(`${APIURL}/items/add-quick`, {
       method: "POST",
       body: JSON.stringify({
@@ -91,10 +92,11 @@ class ShoppingList extends React.Component<
     })
       .then((res) => res.json())
       .then((res: number) => {
-        console.log(res);
         this.addItemIput.current?.setValue("");
+        this.setState({item: ''})
         this.fetchList(this.props.id);
       });
+    }
   }
 
   // add item long way

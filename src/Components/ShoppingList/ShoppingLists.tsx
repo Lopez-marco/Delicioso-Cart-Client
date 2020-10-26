@@ -208,7 +208,7 @@ class ShoppingLists extends React.Component<
           />
         ) : (
           <div id="shopping-list-component-select">
-            <h3 style={{ flexGrow: 1 }}>Select an list from the menu</h3>
+            <h3 id='select-option-text'>Select a list from the menu</h3>
           </div>
         )}
       </div>

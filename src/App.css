@@ -161,14 +161,19 @@ code {
   margin-right: 20%;
   margin-left: 20%;
   padding: 3em;
+  padding-top: 5em;
   display: flex;
 
 }
 #shopping-list-component-select {
-  margin: 6em;
-  padding: 3em;
+  margin: 4em;
+  padding: 2em;
   display: flex;
 
+}
+
+#select-option-text {
+  color: white;
 }
 
 
