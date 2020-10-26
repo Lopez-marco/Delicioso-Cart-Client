@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Form, Input } from "antd";
 import "./auth.css";
+import APIURL from "../helpers/environment";
 
 type valueTypes = {
   username: string;
@@ -30,7 +31,7 @@ class Signup extends React.Component<acceptedProps, valueTypes> {
 
   handleSubmit = (event: any) => {
     console.log(this.state.username, this.state.email, this.state.password);
-    fetch("http://localhost:3001/user/add-user", {
+    fetch(`${APIURL}/user/add-user`, {
       method: "POST",
       body: JSON.stringify({
         username: this.state.username,

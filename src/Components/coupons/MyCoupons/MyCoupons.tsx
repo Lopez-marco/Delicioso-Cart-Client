@@ -2,6 +2,7 @@ import React from "react";
 import { Row } from "antd";
 import { MyCouponResult } from "./myCouponInterface";
 import MyCouponsCards from "./myCouponsCards";
+import APIURL from "../../../helpers/environment";
 
 export interface MyCouponsProps {
   token: string;
@@ -26,7 +27,7 @@ class MyCoupons extends React.Component<MyCouponsProps, MyCouponsState> {
     let token = this.props.token
       ? this.props.token
       : localStorage.getItem("token");
-    fetch("http://localhost:3001/coupons/addedcoupons", {
+    fetch(`${APIURL}/coupons/addedcoupons`, {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",

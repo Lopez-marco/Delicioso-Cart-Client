@@ -12,6 +12,7 @@ import {
 } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import CouponCardsModal from "./CouponCardsModal";
+import APIURL from "../../../helpers/environment";
 
 export interface CouponCardsProps {
   key: number;
@@ -34,7 +35,7 @@ class CouponCards extends React.Component<CouponCardsProps, CouponCardsState> {
       ? this.props.token
       : localStorage.getItem("token");
     event.preventDefault();
-    fetch("http://localhost:3001/coupons/addcoupon", {
+    fetch(`${APIURL}/coupons/addcoupon`, {
       method: "POST",
       body: JSON.stringify({ coupon: { coupon: this.props.couponsbox } }),
       headers: new Headers({
