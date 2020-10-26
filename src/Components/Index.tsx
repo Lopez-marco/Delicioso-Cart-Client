@@ -5,6 +5,7 @@ import FindStore from "./FavoviteStore/FindStore/FindStore";
 import MenuofComponents from "./MenuofComponents";
 import CouponsMainPage from "./coupons/CouponsMainPage";
 import ShoppingLists from "./ShoppingList/ShoppingLists";
+import AdminArea from "./Admin/adminindex";
 
 export interface IndexProps {
   token: string;
@@ -38,6 +39,9 @@ class Index extends React.Component<IndexProps, IndexState> {
           </Route>
           <Route exact path="/shoppingList">
             <ShoppingLists token={this.props.token} />
+          </Route>
+          <Route exact path="/admin">
+            <AdminArea token={this.props.token} />
           </Route>
         </Switch>
       </div>

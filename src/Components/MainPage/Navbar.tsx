@@ -41,6 +41,12 @@ class Navbar extends React.Component<NavbarProps, NavbarState> {
               Home
             </a>
           </Menu.Item>
+          <Menu.Item>
+            <a href="/admin">
+              <HomeOutlined />
+              Admin
+            </a>
+          </Menu.Item>
           <Menu.Item style={{ float: "right" }} onClick={this.clearToken}>
             <LogoutOutlined />
             Log Out

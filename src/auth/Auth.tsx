@@ -69,7 +69,10 @@ class Auth extends React.Component<acceptedProps, typeState> {
                     store={this.props.store}
                   />
                 ) : (
-                  <Signup updateToken={this.props.updateToken} />
+                  <Signup
+                    updateToken={this.props.updateToken}
+                    store={this.props.store}
+                  />
                 )}
                 <br />
                 <Button
