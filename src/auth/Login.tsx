@@ -1,4 +1,4 @@
-import React from "react";
+import React, { MouseEvent } from "react";
 import { Button, Form, Input } from "antd";
 import "./auth.css";
 import APIURL from "../helpers/environment";
@@ -10,7 +10,6 @@ type valueTypes = {
 
 type acceptedProps = {
   updateToken: Function;
-  updateUserRole: any;
   store: Function;
 };
 
@@ -24,7 +23,7 @@ class Login extends React.Component<acceptedProps, valueTypes> {
     };
   }
 
-  handleSubmit = (event: any) => {
+  handleSubmit = (event: MouseEvent) => {
     fetch(`${APIURL}/user/login`, {
       method: "POST",
       body: JSON.stringify({
@@ -54,14 +53,16 @@ class Login extends React.Component<acceptedProps, valueTypes> {
               name="email"
               type="email"
               style={{ width: 500 }}
+              required
             />
             <h2>Password</h2>
-            <Input
+            <Input.Password
               id="loginInput"
               onChange={(e) => this.setState({ password: e.target.value })}
               name="password"
               type="password"
               style={{ width: 500 }}
+              required
             />
             <br></br>
             <Button
