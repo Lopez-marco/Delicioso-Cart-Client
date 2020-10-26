@@ -1,23 +1,40 @@
 import React from "react";
 import Auth from "./auth/Auth";
 import "./App.css";
-import UserList from "./Components/Admin/adminindex";
 import { BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
 import Index from "./Components/Index";
+import APIURL from "./helpers/environment";
 
 export interface AppProps {}
 
 export interface AppState {
   token: string;
   favorite_store: string;
+  isAdmin: boolean;
 }
 
 class App extends React.Component<AppProps, AppState> {
   constructor(props: AppProps) {
     super(props);
-    this.state = { token: "", favorite_store: "" };
+    this.state = { token: "", favorite_store: "", isAdmin: false };
   }
+
+  componentDidMount() {
+    if(this.state.token) {
+    fetch(`${APIURL}/user/login`, {
+      method: "GET",
+      headers: new Headers({
+        "Content-Type": "application/json",
+        "Authorization": this.state.token
+      }),
+    })
+      .then((response) => response.json())
+      .then((userRole) => {
+        this.setState({isAdmin: userRole})
+      });
+  }
+}
 
   updateToken = (token: string) => {
     if (localStorage.getItem("token")) {
@@ -41,6 +58,7 @@ class App extends React.Component<AppProps, AppState> {
           token={this.state.token}
           favorite_store={this.state.favorite_store}
           store={this.store}
+          isAdmin={this.state.isAdmin}
         />
       </Router>
     ) : (
