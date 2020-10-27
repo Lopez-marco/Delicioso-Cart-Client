@@ -46,7 +46,6 @@ class ShoppingListElement extends React.Component<
       modalDisplay: false,
     };
     this.onChange = this.onChange.bind(this);
-    this.handleMenuClick = this.handleMenuClick.bind(this);
     this.editItem = this.editItem.bind(this);
     this.checkItem = this.checkItem.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
@@ -57,7 +56,6 @@ class ShoppingListElement extends React.Component<
     this.checkItem(e);
   }
 
-  handleMenuClick(e: any) {}
   handleOk = () => {
     this.editItem();
   };
@@ -128,7 +126,7 @@ class ShoppingListElement extends React.Component<
 
   render() {
     const menu = (
-      <Menu onClick={this.handleMenuClick}>
+      <Menu >
         <Menu.Item key="1">
           <Button className="borderless" onClick={this.showModal}>
             <EditOutlined /> Edit
@@ -153,6 +151,7 @@ class ShoppingListElement extends React.Component<
           style={{ borderBottom: "0.5px solid gray" }}
           // eslint-disable-next-line jsx-a11y/anchor-is-valid
           actions={[
+            // eslint-disable-next-line jsx-a11y/anchor-is-valid
             <a key="list-options">
               <div id="components-dropdown-demo-dropdown-button">
                 <Dropdown overlay={menu}>

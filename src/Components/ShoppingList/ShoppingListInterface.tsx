@@ -13,9 +13,9 @@ export interface ShoppingListInterface {
     item_name: string;
     quantity: number;
     bought: boolean;
-    order?: any;
+    order?: number;
     shoppingListId: number;
-    categoryId?: any;
+    categoryId?: number;
 }
 
 export interface ShoppingListArrayInterface extends Array<ShoppingListInterface>{}
