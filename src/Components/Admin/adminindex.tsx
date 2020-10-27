@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col, Select, Button, Card, Switch } from "antd";
+import { Row, Col, Select, Button, Card, Switch, List } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import APIURL from "../../helpers/environment";
+import "./adminindex.css";
 // const { Option } = Select;
 export interface UserListProps {
   token: string;
@@ -106,40 +107,44 @@ class UserList extends React.Component<UserListProps, UserListState> {
                 <h4>{carddata.email}</h4>
                 <h4>{carddata.favorite_store}</h4>
                 <h4>{carddata.account_type}</h4>
-                <Button
-                  onClick={() =>
-                    carddata.id
-                      ? this.deleteSpecificUser(carddata.id)
-                      : alert("no ID")
-                  }
-                  type="primary"
-                  shape="circle"
-                  icon={<DeleteOutlined />}
-                />
-                {carddata.account_type ? (
+                <div className="container">
                   <Button
+                    className="delete-btn"
+                    onClick={() =>
+                      carddata.id
+                        ? this.deleteSpecificUser(carddata.id)
+                        : alert("no ID")
+                    }
                     type="primary"
                     shape="circle"
-                    icon={<EditOutlined />}
-                    onClick={() =>
-                      this.updateSpecificUser(
-                        carddata.id,
-                        carddata.account_type
-                      )
-                    }
+                    icon={<DeleteOutlined />}
                   />
-                ) : (
-                  <Button
-                    onClick={() =>
-                      this.updateSpecificUser(
-                        carddata.id,
-                        carddata.account_type
-                      )
-                    }
-                  >
-                    Not Admin
-                  </Button>
-                )}
+                  {carddata.account_type ? (
+                    <Button
+                      className="btn"
+                      onClick={() =>
+                        this.updateSpecificUser(
+                          carddata.id,
+                          carddata.account_type
+                        )
+                      }
+                    >
+                      Make User
+                    </Button>
+                  ) : (
+                    <Button
+                      className="btn"
+                      onClick={() =>
+                        this.updateSpecificUser(
+                          carddata.id,
+                          carddata.account_type
+                        )
+                      }
+                    >
+                      Make Admin
+                    </Button>
+                  )}
+                </div>
               </Col>
             </Row>
           </Card>
@@ -151,8 +156,12 @@ class UserList extends React.Component<UserListProps, UserListState> {
     return (
       <>
         <h1>Users</h1>
-        <div>
-          <Col>{this.displayCards()}</Col>
+        <div id="adminindex">
+          <Row gutter={[18, 16]} justify="center">
+            <Col>
+              <Col>{this.displayCards()}</Col>
+            </Col>
+          </Row>
         </div>
       </>
     );

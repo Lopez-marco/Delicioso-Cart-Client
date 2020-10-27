@@ -1,7 +1,7 @@
 :root {
   --main-color: rgba(225, 225, 225);
-  --btn-color: rgb(120, 27, 226);
-  --btn-hover: rgb(180, 140, 226);
+  --btn-color: rgb(215, 107, 40);
+  --btn-hover: rgb(246, 154, 93);
   --font-style: Arial;
 }
 
@@ -14,7 +14,7 @@
 body {
   font-family: var(--font-style);
   line-height: 1.5;
-  background: url("./images/background.jpg");
+  /* background: url("./images/background.jpg"); */
 }
 
 .container {
@@ -28,10 +28,13 @@ body {
   border: none;
   padding: 0.5rem;
   border-radius: 5px;
+  color: #fff;
 }
 
 .btn:hover {
   background-color: var(--btn-hover);
+  color: #fff;
+  border: none;
 }
 
 /* Auth */
