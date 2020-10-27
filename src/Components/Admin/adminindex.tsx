@@ -152,7 +152,10 @@ class UserList extends React.Component<UserListProps, UserListState> {
       <>
         <h1>Users</h1>
         <div>
-          <Col>{this.displayCards()}</Col>
+          <Card>
+            username----- email----- favorite store--- admin
+            {this.displayCards()}
+          </Card>
         </div>
       </>
     );
