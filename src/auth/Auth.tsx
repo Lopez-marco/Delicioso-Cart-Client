@@ -1,5 +1,5 @@
 import "./auth.css";
-import React from "react";
+import React, { MouseEvent } from "react";
 import { Button, Row, Card, Col, Image } from "antd";
 import "../App.css";
 import Login from "./Login";
@@ -26,7 +26,7 @@ class Auth extends React.Component<acceptedProps, typeState> {
     };
   }
 
-  loginToggle = (event: any) => {
+  loginToggle = (event: MouseEvent) => {
     event.preventDefault();
     if (this.state.showLogin === true) {
       return this.setState({
@@ -65,11 +65,13 @@ class Auth extends React.Component<acceptedProps, typeState> {
                 {this.state.showLogin ? (
                   <Login
                     updateToken={this.props.updateToken}
-                    updateUserRole={this.props.updateUserRole}
                     store={this.props.store}
                   />
                 ) : (
-                  <Signup updateToken={this.props.updateToken} />
+                  <Signup
+                    updateToken={this.props.updateToken}
+                    store={this.props.store}
+                  />
                 )}
                 <br />
                 <Button

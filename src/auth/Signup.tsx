@@ -1,7 +1,9 @@
-import React from "react";
-import { Button, Form, Input } from "antd";
+import React, { MouseEvent } from "react";
+import { Button, Form, Input, Select } from "antd";
 import "./auth.css";
 import APIURL from "../helpers/environment";
+
+const { Option } = Select;
 
 type valueTypes = {
   username: string;
@@ -14,6 +16,7 @@ type valueTypes = {
 
 type acceptedProps = {
   updateToken: Function;
+  store: Function;
 };
 
 class Signup extends React.Component<acceptedProps, valueTypes> {
@@ -29,7 +32,7 @@ class Signup extends React.Component<acceptedProps, valueTypes> {
     };
   }
 
-  handleSubmit = (event: any) => {
+  handleSubmit = (event: MouseEvent) => {
     console.log(this.state.username, this.state.email, this.state.password);
     fetch(`${APIURL}/user/add-user`, {
       method: "POST",
@@ -46,6 +49,7 @@ class Signup extends React.Component<acceptedProps, valueTypes> {
       .then((response) => response.json())
       .then((data) => {
         this.props.updateToken(data.sessionToken);
+        this.props.store(data.favorite_store);
         console.log("Signup Working");
         console.log(data.sessionToken);
       });
@@ -65,6 +69,7 @@ class Signup extends React.Component<acceptedProps, valueTypes> {
               name="username"
               type="text"
               style={{ width: 500 }}
+              required
             />
             <h2>Email</h2>
             <Input
@@ -74,28 +79,36 @@ class Signup extends React.Component<acceptedProps, valueTypes> {
               name="email"
               type="email"
               style={{ width: 500 }}
+              required
             />
             <h2>Password</h2>
-            <Input
+            <Input.Password
               className="signupInput"
               onChange={(e) => this.setState({ password: e.target.value })}
               name="password"
               value={this.state.password}
               type="password"
               style={{ width: 500 }}
+              required
             />
             <h2>Favorite Store</h2>
-            <Input
-              className="signupInput"
-              onChange={(e) =>
-                this.setState({ favorite_store: e.target.value })
+            <Select
+              defaultValue="Change Store"
+              onChange={(value: string) =>
+                this.setState({ favorite_store: `${value}` })
               }
-              value={this.state.favorite_store}
-              name="favorite_store"
-              type="text"
               style={{ width: 500 }}
-            />
-            <br></br>
+            >
+              <Option value="target">Target</Option>
+              <Option value="walmart">Walmart</Option>
+              <Option value="meijer">Meijer</Option>
+              <Option value="wholefoods">Whole Foods</Option>
+              <Option value="familydollar">Family Dollar</Option>
+              <Option value="freshmarket">Fresh Market</Option>
+              <Option value="traderjoes">Trader Joe's</Option>
+              <Option value="safewayfoods">SafeWay Foods</Option>
+              <Option value="Saraga">Saraga</Option>
+            </Select>
             <Button
               type="primary"
               htmlType="submit"
